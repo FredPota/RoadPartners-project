@@ -1,14 +1,14 @@
-RoadPartners
+# RoadPartners
 El proyecto consiste en una aplicacion web inspirada en uber donde el usuario peude compartir auto con un conductor para ir a un destino en común.
 
-Tecnologias del proyecto
+ ## Tecnologias del proyecto
 
 node.js
 react
 tailwind.css
 
 
-Estructura del proyecto
+## Estructura del proyecto
 
 src/
   components/
@@ -21,11 +21,11 @@ index.html
 
 "assets": En la carpeta "assets" se colocaran los recursos audiovisuales del proyecto y documentos de estilos de la pagina
 
-"components": En la carpeta "components" van a estar componentes que puedan ser reutilizables en el proyecto como el header, footer.
+"components": En la carpeta "components" van a estar componentes que puedan ser reutilizables en el proyecto como el header, footer, etc.
 
 "pages": En la carpeta de "pages" estaran las paginas completas de cada funcionalidad, Ej. "LoginPage.jsx", "HomePage.jsx", etc.
 
-Como iniciar el proyecto
+## Como iniciar el proyecto
 
 1. Abrir terminal (control + ñ, para abrir la terminal)
 
@@ -43,7 +43,7 @@ npm run dev
 
 
 
-información extra para el desarrollo
+# Información extra de VITE
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

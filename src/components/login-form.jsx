@@ -15,7 +15,9 @@ function LoginForm() {
 
   return (
     <div className="login-container ">
-        <h2 className='title-form' >Inicio de Sesión</h2>
+        <h2 className='title-form' >
+            Inicia Sesión en tu cuenta 
+        </h2>
         <form className="login-form"> 
 
             <div className="login-group">
@@ -33,7 +35,7 @@ function LoginForm() {
 
         <p className='text-signin'>
             ¿No tienes una cuenta? 
-            <span className='link-signin hover:text-PageLight-500' 
+            <span className='link-text' 
             onClick={gotoSignIn}>
                 Regístrate aquí
             </span>

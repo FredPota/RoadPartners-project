@@ -62,15 +62,19 @@
 
 .login-container {
   @apply flex flex-col items-center justify-center 
-  h-100 w-80 bg-PageLight-950
+  bg-PageLight-950
   text-PageLight-100
   rounded-lg shadow-lg
-  p-6;
+  p-12
+  gap-8;
 
 }
 .login-form {
   @apply w-full
   flex flex-col items-center
+  border-1 border-PageLight-300
+  rounded-lg
+  p-6
   gap-4;
 }
 
@@ -82,9 +86,9 @@
 }
 
 .title-form {
-  @apply text-2xl font-bold mb-4
-  text-PageDark-900
-  justify-self-start;
+  @apply text-2xl font-bold
+  text-PageDark-900 pb-2
+  ;
 }
 
 .input-form {
@@ -96,13 +100,43 @@
 }
 
 .btnSubmit-form {
-  @apply w-full
+  @apply
   bg-PageGreen-500
   text-white
-  py-2
-  rounded-md
+  mt-5
+  px-12
+  py-1
+  rounded-full
   hover:bg-PageGreen-800
   focus:outline-none focus:ring-2 focus:ring-PageGreen-500;
+}
+.link-text {
+  @apply text-PageGreen-900
+  cursor-pointer
+  hover:text-PageGreen-300
+  hover:underline
+  focus:outline-none focus:ring-2 focus:ring-PageGreen-500;
+}
+.hr-form {
+  @apply w-full border-t border-PageLight-300 mb-2;
+}
+
+.text-content {
+  @apply text-base text-PageLight-300
+  text-left
+  ;
+}
+
+.subtitle-form {
+  @apply text-lg 
+  self-start pl-7 ;
+}
+
+.text-tiny {
+  @apply text-xs
+  justify-self-start
+  pb-1
+  ;
 }
 
 

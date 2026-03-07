@@ -1,6 +1,22 @@
 @import "tailwindcss";
 @import "./palleteColors.css";
 
+/*Contenedores Genericos*/
+
+.multiple-info-container {
+    @apply w-full
+    flex flex-row justify-evenly gap-4
+}
+
+
+.focus-info {
+    @apply w-full
+    flex flex-col
+    p-6
+    text-3xl
+    font-semibold
+}
+
 .nav-btns {
   @apply flex flex-row;
 }
@@ -50,14 +66,14 @@
 
 .profile-page {
     @apply mt-[10%]
-    h-screen
+    h-full
 
 }
 
 #profile-container {
     @apply flex flex-col items-start gap-4
     bg-[#262626] w-screen
-    pl-[10%] h-screen
+    pl-[10%] h-full
     py-10
     ;
 }
@@ -88,4 +104,99 @@
 .home-container {
     @apply w-screen
 
+}
+
+/*Estilos Historial de Viajes*/
+
+.travel-history-container {
+    @apply w-3/4
+    max-w-400
+    p-10
+    flex flex-col items-start
+    /* border-1 border-PageLight-300 */
+    rounded-lg
+}
+
+.travel-history-list {
+    @apply 
+    grid
+    grid-rows-2
+    grid-flow-col
+    gap-5
+    w-full
+    h-full
+    p-14
+    border border-PageLight-300
+    rounded-lg
+    overflow-x-auto
+    snap-x
+}
+
+.travel-history-card {
+    @apply flex flex-row items-start gap-2
+    bg-PageLight-100 p-4
+    rounded-lg
+    text-white
+    h-40
+    text-start
+    w-120
+    border-1 border-PageLight-300
+
+    flex-shrink-0
+
+    transition-all duration-200
+    ease-in-out
+    hover:bg-PageLight-200
+    hover:inset-ring
+    hover:inset-ring-white
+    
+}
+
+
+.img-travel-history-card {
+    @apply w-auto h-full object-cover rounded-lg
+    p-1 
+    bg-PageLight-500
+}
+
+.travel-history-card-content {
+    @apply text-base
+    first:font-semibold
+    first:ml-5
+    first:py-2
+    ml-10
+
+}
+
+/*Estilos Detalles del viaje*/
+
+.modal-overlay {
+    @apply fixed inset-0
+    flex items-center justify-center
+    bg-black/50
+    z-50;
+}
+
+.travel-modal {
+    @apply w-120
+    p-8
+    flex flex-col gap-4
+    bg-PageLight-100
+    border border-PageLight-300
+    rounded-lg
+    text-white
+    shadow-lg;
+}
+
+.travel-modal-title {
+    @apply text-2xl font-semibold;
+}
+
+.modal-close-button {
+    @apply mt-4
+    p-2
+    bg-PageGreen-950
+    rounded-md
+    hover:opacity-80
+    transition;
 }

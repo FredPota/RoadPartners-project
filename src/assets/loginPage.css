@@ -15,7 +15,8 @@
   text-PageLight-100
   rounded-lg shadow-lg
   p-12
-  gap-8;
+  gap-8
+  w-100;
 
 }
 .login-form {
@@ -76,9 +77,14 @@
   ;
 }
 
-.subtitle-form {
+/* .subtitle-form {
   @apply text-lg 
   self-start pl-7 ;
+} */
+
+.subtitle-form {
+  @apply text-2xl absolute left-15 top-5
+  self-start px-2 ;
 }
 
 .text-tiny {

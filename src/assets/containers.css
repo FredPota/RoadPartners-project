@@ -5,29 +5,59 @@
   @apply flex flex-row;
 }
 
-.profile-btn {
+.menu-profile-btn {
     @apply rounded-none
     bg-[#1a1a1a] text-white
     px-4 py-2
     border-0
-    border-PageLight-300
+    transition-all duration-200
+    ease-in-out
     ;
 }
 
-.profile-btn:hover {
+.menu-profile-btn:hover {
     @apply bg-PageDark-500
+    inset-ring
+    inset-shadow-PageDark-300
+    ring-0
+    border-0
     ;
 }
+
+.menu-profile-btn:focus {
+    @apply bg-PageDark-500
+    inset-ring
+    inset-shadow-PageDark-300
+    ;
+}
+
+.profile-btn {
+    @apply rounded-md
+    bg-[#1a1a1a] text-white
+    px-4 py-2
+    border-0
+    transition-all duration-200
+    ease-in-out
+    ;
+}
+.profile-btn:hover {
+    @apply bg-PageDark-500
+    inset-ring
+    inset-ring-PageDark-300
+    border-PageDark-300
+    ;
+}   
 
 .profile-page {
     @apply mt-[10%]
+    h-screen
 
 }
 
 #profile-container {
     @apply flex flex-col items-start gap-4
     bg-[#262626] w-screen
-    pl-[10%] h-auto
+    pl-[10%] h-screen
     py-10
     ;
 }

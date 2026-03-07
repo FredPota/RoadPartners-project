@@ -5,7 +5,7 @@ function PaymentForm() {
     return (
         <form>
             <div className=" login-form" id="payment-info">
-                <h2 className="self-start pl-7 m-0">Información de Pago</h2>
+                <h2 className="self-start pl-7 m-0">Información de Tarjeta</h2>
                 <input className="input-form" placeholder="Titular de la tarjeta" type="text" />
                 <input className="input-form" placeholder="Número de Tarjeta" type="text" name="cardNumber" id="cardNumber" />
                 <div className="login-group" id="card-details"> 
@@ -15,8 +15,9 @@ function PaymentForm() {
                     </div>
                     <input className="input-form basis-40" placeholder="CVV" type="text" name="cvv" id="cvv" />
                 </div>
+                            <button type="submit">Guardar tarejeta</button>
+
             </div>
-        
         </form>
     );
 }

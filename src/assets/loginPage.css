@@ -1,64 +1,13 @@
 @import "tailwindcss"; 
-
-/*Paletas de colores de la marca; todas empiezan con "Page" en tailwind*/
-@theme {
-  --color-PageGreen-950: #03A63C;
-  --color-PageGreen-900: #049E39;
-  --color-PageGreen-800: #059633;
-  --color-PageGreen-700: #07B541;
-  --color-PageGreen-600: #09C64C;
-  --color-PageGreen-500: #0BD957;
-  --color-PageGreen-400: #3EE878;
-  --color-PageGreen-300: #72F29C;
-  --color-PageGreen-200: #A6F7C0;
-  --color-PageGreen-100: #D9FCE4;
-
-  --color-PageSiena-950: #84D904;
-  --color-PageSiena-900: #7DCB04;
-  --color-PageSiena-800: #76BD04;
-  --color-PageSiena-700: #90E31A;
-  --color-PageSiena-600: #A6EA3A;
-  --color-PageSiena-500: #BCEF5A;
-  --color-PageSiena-400: #CFF47D;
-  --color-PageSiena-300: #E1F7A0;
-  --color-PageSiena-200: #EEF9C3;
-  --color-PageSiena-100: #F7FCE1;
-
-  --color-PageYellow-950: #F2E205;
-  --color-PageYellow-900: #E6D604;
-  --color-PageYellow-800: #D9C903;
-  --color-PageYellow-700: #F5E73A;
-  --color-PageYellow-600: #F7EB5A;
-  --color-PageYellow-500: #F9EE7A;
-  --color-PageYellow-400: #FBF29C;
-  --color-PageYellow-300: #FCF5B5;
-  --color-PageYellow-200: #FDF8D0;
-  --color-PageYellow-100: #FEFCE8;
-
-  --color-PageDark-950: #261008;
-  --color-PageDark-900: #34160B;
-  --color-PageDark-800: #431C0E;
-  --color-PageDark-700: #5A2614;
-  --color-PageDark-600: #73311A;
-  --color-PageDark-500: #8C3D20;
-  --color-PageDark-400: #A6563A;
-  --color-PageDark-300: #C27B64;
-  --color-PageDark-200: #DBA999;
-  --color-PageDark-100: #F0D7CE;
-
-  --color-PageLight-950: #F9F9F9;
-  --color-PageLight-900: #F0F0F0;
-  --color-PageLight-800: #E6E6E6;
-  --color-PageLight-700: #D9D9D9;
-  --color-PageLight-600: #CCCCCC;
-  --color-PageLight-500: #BFBFBF;
-  --color-PageLight-400: #A6A6A6;
-  --color-PageLight-300: #8C8C8C;
-  --color-PageLight-200: #737373;
-  --color-PageLight-100: #595959;
-}
+@import "./palleteColors.css";
 
 /*Estilo de componente de login con tailwind*/
+
+.login-page {
+  @apply flex items-center justify-center
+  h-screen
+  w-screen;
+}
 
 .login-container {
   @apply flex flex-col items-center justify-center 

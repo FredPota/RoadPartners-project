@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import "./palleteColors.css";
+
+.nav-btns {
+  @apply flex flex-row;
+}
+
+.profile-btn {
+    @apply rounded-none
+    bg-[#1a1a1a] text-white
+    px-4 py-2
+    border-0
+    border-PageLight-300
+    ;
+}
+
+.profile-btn:hover {
+    @apply bg-PageDark-500
+    ;
+}
+
+.profile-page {
+    @apply mt-[10%]
+
+}
+
+#profile-container {
+    @apply flex flex-col items-start gap-4
+    bg-[#262626] w-screen
+    pl-[10%] h-auto
+    py-10
+    ;
+}
+
+#profile-header {
+    @apply text-2xl
+    w-full
+    mb-10
+    text-left
+    ;
+}
+
+#profile-content {
+    @apply w-full
+    flex flex-col items-start gap-4
+    border-1 border-PageLight-300
+    rounded-lg
+    p-6;
+}
+
+
+.sign-in-page {
+    @apply flex items-center justify-center
+    h-screen
+    w-screen
+}
+
+.home-container {
+    @apply w-screen
+
+}

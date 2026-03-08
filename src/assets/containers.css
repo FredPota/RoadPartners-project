@@ -8,17 +8,53 @@
     flex flex-row justify-evenly gap-4
 }
 
-
-.focus-info {
+.focus-info-container {
     @apply w-full
-    flex flex-col
+    flex flex-col items-start gap-4
+    border border-PageLight-300
+    rounded-lg
     p-6
     text-3xl
-    font-semibold
+}
+
+/*Profile*/
+
+.profile-page {
+    @apply flex
+    mt-[10%]
+    h-screen
+
+}
+
+#profile-container {
+    @apply flex flex-col items-start gap-4
+    bg-[#262626] w-screen
+    pl-[10%] h-full
+    py-10
+    ;
 }
 
 .nav-btns {
-  @apply flex flex-row;
+  @apply flex flex-row
+  ;
+}
+
+.nav-profile {
+  @apply flex flex-col
+  w-30
+  bg-[#1a1a1a]
+  ;
+}
+
+.nav-btn-profile {
+    @apply rounded-none
+    aspect-square
+    bg-[#1a1a1a] text-white
+    px-4 py-2
+    border-0
+    transition-all duration-200
+    ease-in-out
+    ;
 }
 
 .menu-profile-btn {
@@ -64,20 +100,6 @@
     ;
 }   
 
-.profile-page {
-    @apply mt-[10%]
-    h-full
-
-}
-
-#profile-container {
-    @apply flex flex-col items-start gap-4
-    bg-[#262626] w-screen
-    pl-[10%] h-full
-    py-10
-    ;
-}
-
 #profile-header {
     @apply text-2xl
     w-full
@@ -87,7 +109,7 @@
 }
 
 #profile-content {
-    @apply w-full
+    @apply w-full relative
     flex flex-col items-start gap-4
     border-1 border-PageLight-300
     rounded-lg

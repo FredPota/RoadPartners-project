@@ -17,6 +17,93 @@
     text-3xl
 }
 
+.dropdown-menu {
+    @apply absolute 
+    top-full 
+    right-0  
+    w-full 
+    bg-PageGreen-700 
+    shadow-lg
+    text-white
+    z-0
+}
+
+.dropdown-menu-item {
+    @apply px-4 py-2
+    hover:bg-PageGreen-500
+    transition-all duration-200
+    ease-in-out
+
+    hover:cursor-pointer
+}
+
+
+
+/*HEADER*/
+
+.header-container {
+    @apply w-screen fixed top-0 left-0
+    flex flex-row items-center justify-between
+    bg-[#1a1a1a]
+    h-18
+    px-32
+    text-white
+    border-b border-PageLight-100
+}
+
+.company-name {
+    @apply text-2xl 
+    px-2
+    group-hover:text-green-100
+    group-hover:cursor-pointer
+    transition-all duration-200 ease-in-out
+    
+}
+
+.header-logo {
+    @apply
+    aspect-square
+    h-14
+    bg-PageLight-800
+    p-1
+    rounded-2xl
+    group-hover:bg-green-100
+    group-hover:cursor-pointer
+}
+
+.nav-header{
+    @apply 
+    flex flex-row
+    items-center
+    h-full
+    w-1/2
+}
+
+.nav-header-btn {
+    @apply rounded-none
+    bg-[#1a1a1a] text-white
+    border-0
+    h-full
+    w-auto
+    min-w-25
+    px-4 py-2
+    flex-1
+
+    transition-all duration-200
+    ease-in-out
+    hover:cursor-pointer
+    hover:bg-PageGreen-800
+    hover:shadow-[inset_0px_4px_0px_0px_#646cff]
+    hover:shadow-PageGreen-400
+    ;
+}
+
+.nav-header-btn:focus {
+    @apply bg-PageGreen-800
+    shadow-PageGreen-400
+    border-0
+}
+
 /*Profile*/
 
 .profile-page {

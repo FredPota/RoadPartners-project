@@ -40,6 +40,7 @@
   flex flex-col items-center
   content-center
   gap-1;
+}
 
 .title-form {
   @apply text-2xl font-semibold

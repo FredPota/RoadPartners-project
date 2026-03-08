@@ -8,6 +8,17 @@
     flex flex-row justify-evenly gap-4
 }
 
+.list-container {
+    @apply w-full
+    h-80
+    flex flex-row items-start gap-4
+    border border-PageLight-300
+    rounded-lg
+    p-6
+    overflow-x-auto
+    shrink-0
+}
+
 .focus-info-container {
     @apply w-full
     flex flex-col items-start gap-4
@@ -109,7 +120,8 @@
 .profile-page {
     @apply flex
     mt-[10%]
-    h-screen
+    min-h-screen
+    h-auto
 
 }
 
@@ -308,4 +320,41 @@
     rounded-md
     hover:opacity-80
     transition;
+}
+
+/*Payment*/
+
+.paycard {
+    @apply
+    aspect-[5/3]
+    w-64
+    rounded-2xl
+    p-5
+    flex
+    flex-col
+    shrink-0
+    justify-between
+    bg-gradient-to-br
+    from-PageDark-700
+    to-PageDark-900
+    text-white
+    shadow-xl
+    relative
+    overflow-hidden;
+}
+
+.paycard:hover {
+    @apply bg-gradient-to-br
+    from-PageDark-600
+    to-PageDark-900
+    shadow-2xl
+    cursor-pointer
+}
+
+.paycard:focus {
+    @apply bg-gradient-to-br
+    from-PageDark-600
+    to-PageDark-900
+    shadow-2xl
+    ring-2 ring-PageGreen-500
 }

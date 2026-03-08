@@ -4,7 +4,8 @@ import Header from '../components/header.jsx';
 import PaymentForm from '../components/payment-form';
 import TravelHistory from '../components/travelhistory.jsx';
 import ChangePassword from '../components/change-password.jsx';
-import VerifyProfile from '../components/verify-profile.jsx';
+import VerifyProfile from '../components/verifyProfile.jsx';
+import PayMethodsList from '../components/payMethodsList.jsx';
 import '../assets/loginPage.css';
 import '../assets/containers.css';
 
@@ -12,6 +13,7 @@ function ProfilePage() {
 
     const [activeSection, setActiveSection] = useState('personalInfo');
     const [isEditing, setIsEditing] = useState('');
+    const [cardAction, setCardAction] =useState('');
 
     const navigate = useNavigate();
     const goToHome = () => {
@@ -70,7 +72,27 @@ function ProfilePage() {
 
                     {isEditing === 'password' && <ChangePassword setisEditing={setIsEditing} />}
                     {isEditing === 'verify' && <VerifyProfile setisediting={setIsEditing} />}
-                    {activeSection === 'paymentMethods' && <PaymentForm />}
+                    {activeSection === 'paymentMethods' && (
+                        <div className="flex flex-col h-full gap-10">
+                            <PayMethodsList cardaction={cardAction} setcardaction={setCardAction} />
+                            {cardAction === 'add' && (
+                                <div className='modal-overlay'>
+                                    <div className="flex h-auto w-auto p-15 rounded-3xl bg-[#262626]">
+                                        <PaymentForm cardmodal={cardAction} setcardmodal={setCardAction} />
+                                    </div>
+                                    
+                                </div>
+                            )}
+                            {cardAction === 'edit' && (
+                                <div className='modal-overlay'>
+                                    <div className="flex h-auto w-auto p-15 rounded-3xl bg-[#262626]">
+                                        <PaymentForm cardmodal={cardAction} setcardmodal={setCardAction} />
+                                    </div>
+                                    
+                                </div>
+                            )}
+                        </div>
+                    )}
                     {activeSection === 'travelHistory' && <TravelHistory />}
 
                     <button className='profile-btn' onClick={goToHome}>Regresar a la HomePage</button>

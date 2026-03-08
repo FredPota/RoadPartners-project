@@ -5,7 +5,6 @@ function CardPay({card}) {
             <p className="card-number">{card.number}</p>
             <div>
                 <p className="card-expiration">Exp: {card.expiration}</p>
-                <p className="card-cvv">CVV: {card.cvv}</p>
             </div>
         </button>
     );

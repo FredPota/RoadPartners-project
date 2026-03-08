@@ -37,7 +37,7 @@ function PayMethodsList({cardaction, setcardaction}) {
                 ))}
             </ul>
 
-            <nav className='nav-btns items-start gap-2 my-5'>
+            <nav className='nav-btns w-full gap-2 my-5'>
                 <button className="profile-btn" onClick={() => setcardaction('add')}>Agregar Método de Pago</button>
                 <button className="profile-btn" onClick={() => setcardaction('edit')}>Editar Método de Pago</button>
                 <button className="profile-btn" onClick={() => setcardaction('delete')}>Eliminar Método de Pago</button>

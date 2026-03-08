@@ -11,19 +11,35 @@ function SignInPage() {
 
     return (
         <div className="sign-in-page">
-            {/* Aquí puedes agregar el formulario de registro de usuario */}
-            <form className="login-container" action="">
-                            <h1>Registro de Usuario</h1>
+            <form className="signin-container relative" action="">
+                            <h1 className="title-form">Registro de Usuario</h1>
                 
-                <div className="login-form" id="personal-info">
-                    <h2 className="self-start pl-7 m-0">Información de la Cuenta</h2>
-                    <input className="input-form" placeholder="Nombre(s)" type="text" name="name" id="name" />
-                    <input className="input-form" placeholder="Apellido(s)" type="text" name="lastname" id="lastname" />
-                    <input className="input-form" placeholder="Correo Electrónico" type="email" name="email" id="email" />
-                    <input className="input-form" placeholder="Contraseña" type="password" name="password" id="password" />
-                    <input className="input-form" placeholder="Confirmar Contraseña" type="password" name="confirmPassword" id="confirmPassword" />
-                </ div>
-                <hr className="hr-form" />
+                <div className="login-form relative" id="personal-info">
+                    <h2 className="subtitle-form bg-PageLight-950 -top-5">Información de la Cuenta</h2>
+                    <div className="flex w-2/3 gap-5">
+                        <input className="input-form" placeholder="Nombre(s)" type="text" name="name" id="name" />
+                        <input className="input-form" placeholder="Apellido(s)" type="text" name="lastname" id="lastname" />
+                    </div>
+                    <div className="flex w-2/3 flex-col gap-5">
+                        <input className="input-form" placeholder="Correo Electrónico" type="email" name="email" id="email" />
+                        <input className="input-form" placeholder="Número de Teléfono" type="tel" name="phone" id="phone" />
+                    </div>
+
+                    <div className="relative w-1/2" >
+                        <label className="relative" htmlFor="birthday">Fecha de Nacimiento</label>
+                        <input className="input-form basis-50" type="date" name="birthday" id="birthday" />
+                    </div>
+                    
+
+                    <div className="flex w-2/3 flex-col gap-5">
+                        <input className="input-form" placeholder="Contraseña" type="password" name="password" id="password" />
+                        <input className="input-form" placeholder="Confirmar Contraseña" type="password" name="confirmPassword" id="confirmPassword" />
+                    </div>
+                    
+                    <button className="btnSubmit-form" type="submit" onClick={goToLogin}>Registrarse</button>
+                    
+                    
+                </div>
                 
                 {/* <div className=" login-form" id="payment-info">
                     <h2 className="self-start pl-7 m-0">Información de Pago</h2>
@@ -55,7 +71,7 @@ function SignInPage() {
                         name="verification-doc" id="verification-doc" />
                     </div>
                 </div> */}
-                <button className="btnSubmit-form" type="submit" onClick={goToLogin}>Registrarse</button>
+                
             </form>
 
             

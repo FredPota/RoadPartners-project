@@ -1,0 +1,588 @@
+@import "tailwindcss";
+@import "./palleteColors.css";
+
+/*Contenedores Genericos*/
+
+.multiple-info-container {
+    @apply w-full
+    flex flex-row justify-evenly gap-4
+}
+
+.list-container {
+    @apply w-full
+    flex flex-row items-start gap-4
+    border border-PageLight-300
+    rounded-lg
+    p-6
+    overflow-x-auto
+    shrink-0
+}
+
+.list-container-vertical {
+    @apply w-full
+    flex-1
+    flex flex-col items-start gap-4
+    overflow-y-auto
+}
+
+
+.focus-info-container {
+    @apply w-full
+    flex flex-col items-start gap-4
+    border border-PageLight-300
+    rounded-lg
+    p-6
+    text-3xl
+}
+
+.dropdown-menu {
+    @apply absolute 
+    top-full 
+    right-0  
+    w-full 
+    bg-PageGreen-700 
+    shadow-lg
+    text-white
+    z-0
+}
+
+.dropdown-menu-item {
+    @apply px-4 py-2
+    hover:bg-PageGreen-500
+    transition-all duration-200
+    ease-in-out
+
+    hover:cursor-pointer
+}
+
+.stretched-card {
+    @apply 
+    w-full
+    h-30
+    bg-PageLight-100
+    border border-PageLight-300
+    rounded-lg
+    text-white
+    flex flex-col items-start gap-4
+
+    transition-all duration-200 ease-in-out
+    hover:bg-PageLight-200
+    hover:inset-ring
+    hover:inset-ring-white
+    hover:cursor-pointer
+    focus:bg-PageLight-200
+    focus:inset-ring
+    focus:inset-ring-white
+}
+
+/*HEADER*/
+
+.header-container {
+    @apply w-screen sticky top-0 left-0
+    flex flex-row items-center justify-between
+    bg-[#1a1a1a]
+    h-18
+    px-32
+    text-white
+    border-b border-PageLight-100
+    z-100
+}
+
+.company-name {
+    @apply text-2xl 
+    px-2
+    group-hover:text-green-100
+    group-hover:cursor-pointer
+    transition-all duration-200 ease-in-out
+    
+}
+
+.header-logo {
+    @apply
+    aspect-square
+    h-14
+    bg-PageLight-800
+    p-1
+    rounded-2xl
+    group-hover:bg-green-100
+    group-hover:cursor-pointer
+}
+
+.nav-header{
+    @apply 
+    flex flex-row
+    items-center
+    h-full
+    w-1/2
+}
+
+.nav-header-btn {
+    @apply rounded-none
+    bg-[#1a1a1a] text-white
+    border-0
+    h-full
+    w-auto
+    min-w-25
+    px-4 py-2
+    flex-1
+
+    transition-all duration-200
+    ease-in-out
+    hover:cursor-pointer
+    hover:bg-PageGreen-800
+    hover:shadow-[inset_0px_4px_0px_0px_#646cff]
+    hover:shadow-PageGreen-400
+    ;
+}
+
+.nav-header-btn:focus {
+    @apply bg-PageGreen-800
+    shadow-PageGreen-400
+    border-0
+}
+
+/*HOME*/
+
+.home-container {
+    @apply w-screen
+    h-screen
+}
+.home-content {
+    @apply w-screen
+    h-auto
+    flex flex-col items-center gap-10
+}
+
+#map-container {
+    @apply w-full
+    h-150
+    bg-PageDark-100
+    m-0
+    flex
+}
+
+.travel-container {
+    @apply relative
+    w-full
+    max-w-100
+    h-full
+    px-20
+    pr-15
+    py-5
+    text-PageDark-950
+    bg-PageGreen-100
+    flex flex-col items-start 
+    shadow-[10px_0px_30px_rgba(0,0,0,0.3)]
+}
+
+.travel-form {
+    @apply w-full relative
+    h-full
+    flex flex-col items-start gap-4
+    p-6
+    border border-PageLight-700 
+    rounded-lg 
+    ml-10
+}
+
+.map-home {
+    @apply w-full relative
+    h-full
+    bg-PageDark-100
+    z-0
+    inset-shadow-[0px_0px_20px_0px_rgba(0,0,0,0.5)]
+}
+
+.searchedTravels-container {
+    @apply w-full relative
+    h-auto
+    flex flex-col items-start gap-4
+    border border-PageLight-300
+    rounded-lg
+    p-10
+}
+
+#publish-btn {
+    @apply rounded-3xl absolute
+    bottom-5 
+    left-1/8
+    bg-PageDark-700 text-white
+    px-12 py-4
+    font-semibold
+    text-xl
+    border-0
+    transition-all duration-200
+    ease-in-out
+    hover:bg-PageGreen-500
+    hover:shadow-PageGreen-400
+    hover:cursor-pointer
+    ;
+}
+
+.recent-travels-container {
+    @apply w-2/3
+    h-auto
+    flex flex-col items-start gap-4
+    border border-PageLight-300
+    rounded-lg
+    p-10
+    m-10
+}
+
+/*HOME-AvailableTravels*/
+
+/*HOME - Recent persons*/
+
+.recent-profiles-container {
+    @apply w-2/3
+    max-w-300
+    h-auto
+    flex flex-col items-start gap-4
+    p-10
+}
+
+.profile-photo-card {
+    @apply 
+    aspect-square
+    w-2/3 rounded-full object-cover
+    bg-PageLight-500
+    p-5
+}   
+
+.profile-card {
+    @apply w-60
+    h-auto
+    flex-col items-center gap-4
+    bg-PageLight-100
+    border border-PageLight-300
+    rounded-lg
+    text-white
+    flex flex-col items-center gap-4
+    p-4
+
+    transition-all duration-200 ease-in-out
+    hover:bg-PageLight-200
+    hover:inset-ring
+    hover:inset-ring-white
+    hover:cursor-pointer
+}
+
+
+/*Profile*/
+
+.profile-page {
+    @apply flex
+    min-h-screen
+    h-auto
+
+}
+
+#profile-container {
+    @apply flex flex-col items-start gap-4
+    bg-[#262626] w-screen
+    pl-[10%] h-full
+    py-10
+    ;
+}
+
+.nav-btns {
+  @apply flex flex-row
+  ;
+}
+
+.nav-profile {
+  @apply flex flex-col
+  fixed top-0 left-0
+  py-20
+  h-screen
+  z-120
+  w-30
+  bg-[#1a1a1a]
+  ;
+}
+
+.nav-btn-profile {
+    @apply rounded-none
+    aspect-square
+    bg-[#1a1a1a] text-white
+    px-4 py-2
+    border-0
+    transition-all duration-200
+    ease-in-out
+    ;
+}
+
+.menu-profile-btn {
+    @apply rounded-none
+    bg-[#1a1a1a] text-white
+    px-4 py-2
+    border-0
+    transition-all duration-200
+    ease-in-out
+    ;
+}
+
+.menu-profile-btn:hover {
+    @apply bg-PageDark-500
+    inset-ring
+    inset-shadow-PageDark-300
+    ring-0
+    border-0
+    ;
+}
+
+.menu-profile-btn:focus {
+    @apply bg-PageDark-500
+    inset-ring
+    inset-shadow-PageDark-300
+    ;
+}
+
+.profile-btn {
+    @apply rounded-md
+    bg-[#1a1a1a] text-white
+    px-4 py-2
+    border-0
+    transition-all duration-200
+    ease-in-out
+    ;
+}
+.profile-btn:hover {
+    @apply bg-PageDark-500
+    inset-ring
+    inset-ring-PageDark-300
+    border-PageDark-300
+    ;
+}   
+
+#profile-header {
+    @apply text-2xl
+    w-full
+    mb-10
+    text-left
+    ;
+}
+
+#profile-content {
+    @apply w-full relative
+    flex flex-col items-start gap-4
+    border-1 border-PageLight-300
+    rounded-lg
+    p-6;
+}
+
+
+.sign-in-page {
+    @apply flex items-center justify-center
+    h-screen
+    w-screen
+}
+
+/*Car Section*/
+
+.car-card {
+    @apply
+    h-30
+    w-60
+    bg-PageLight-100
+    border border-PageLight-300
+    rounded-lg
+    text-white
+    flex items-start gap-4
+
+    transition-all duration-200 ease-in-out
+    hover:bg-PageLight-200
+    hover:inset-ring
+    hover:inset-ring-white
+    hover:cursor-pointer
+    focus:bg-PageLight-200
+    focus:inset-ring
+    focus:inset-ring-white 
+}
+
+.img-carCard {
+    @apply 
+    h-[70%] 
+    m-auto  
+    bg-PageLight-300 
+    rounded-lg 
+    ring-PageLight-300 
+    ring-5 
+    
+    group-hover:ring-PageLight-500 
+    group-hover:bg-PageLight-500 
+    transition-all duration-200 ease-in-out
+}
+
+
+/*Estilos Historial de Viajes*/
+
+.travel-history-container {
+    @apply w-3/4
+    max-w-400
+    p-10
+    flex flex-col items-start
+    /* border-1 border-PageLight-300 */
+    rounded-lg
+}
+
+.travel-history-list {
+    @apply 
+    grid
+    grid-rows-2
+    grid-flow-col
+    gap-5
+    w-full
+    h-full
+    p-14
+    border border-PageLight-300
+    rounded-lg
+    overflow-x-auto
+    snap-x
+}
+
+.travel-history-card {
+    @apply flex flex-row items-start gap-2
+    bg-PageLight-100 p-4
+    rounded-lg
+    text-white
+    h-40
+    text-start
+    w-120
+    border-1 border-PageLight-300
+
+    flex-shrink-0
+
+    transition-all duration-200
+    ease-in-out
+    hover:bg-PageLight-200
+    hover:inset-ring
+    hover:inset-ring-white
+    
+}
+
+
+
+.img-travel-history-card {
+    @apply w-auto h-30 object-cover rounded-lg
+    p-1 
+    self-center
+    bg-PageLight-500
+}
+
+.travel-history-card-content {
+    @apply text-xs
+    first:font-semibold
+    first:ml-5
+    first:py-2
+    ml-10
+    
+
+}
+
+.travel-history-card-compact {
+    @apply flex flex-col items-start gap-2
+    bg-PageLight-100 p-2
+    rounded-lg
+    text-white
+    
+    h-40
+    text-start
+    w-60
+    border-1 border-PageLight-300
+
+    flex-shrink-0
+
+    transition-all duration-200
+    ease-in-out
+    hover:bg-PageLight-200
+    hover:inset-ring
+    hover:inset-ring-white
+}
+
+.img-travel-history-card-compact {
+    @apply 
+    aspect-square
+    h-20 object-cover rounded-lg
+    p-1 
+    bg-PageLight-500
+}
+
+.travel-history-card-compact-content {
+    @apply text-xs
+    first:font-semibold
+    first:ml-1
+    ml-1.5
+    
+
+}
+
+/*Estilos Detalles del viaje*/
+
+.modal-overlay {
+    @apply fixed inset-0
+    flex items-center justify-center
+    bg-black/50
+    z-50;
+}
+
+.travel-modal {
+    @apply w-120
+    p-8
+    flex flex-col gap-4
+    bg-PageLight-100
+    border border-PageLight-300
+    rounded-lg
+    text-white
+    shadow-lg;
+}
+
+.travel-modal-title {
+    @apply text-2xl font-semibold;
+}
+
+.modal-close-button {
+    @apply mt-4
+    p-2
+    bg-PageGreen-950
+    rounded-md
+    hover:opacity-80
+    transition;
+}
+
+/*Payment*/
+
+.paycard {
+    @apply
+    aspect-[5/3]
+    w-64
+    rounded-2xl
+    p-5
+    flex
+    flex-col
+    shrink-0
+    justify-between
+    bg-gradient-to-br
+    from-PageDark-700
+    to-PageDark-900
+    text-white
+    shadow-xl
+    relative
+    overflow-hidden;
+}
+
+.paycard:hover {
+    @apply bg-gradient-to-br
+    from-PageDark-600
+    to-PageDark-900
+    shadow-2xl
+    cursor-pointer
+}
+
+.paycard:focus {
+    @apply bg-gradient-to-br
+    from-PageDark-600
+    to-PageDark-900
+    shadow-2xl
+    ring-2 ring-PageGreen-500
+}

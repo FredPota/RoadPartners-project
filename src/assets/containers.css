@@ -170,7 +170,7 @@
     pr-15
     py-5
     text-PageDark-950
-    bg-PageGreen-100
+    bg-PageLight-900
     flex flex-col items-start 
     shadow-[10px_0px_30px_rgba(0,0,0,0.3)]
 }
@@ -187,7 +187,7 @@
 
 .map-home {
     @apply w-full relative
-    h-full
+    h-[600px]
     bg-PageDark-100
     z-0
     inset-shadow-[0px_0px_20px_0px_rgba(0,0,0,0.5)]

@@ -6,6 +6,7 @@ import TravelCard from '../components/travelCard.jsx';
 import AvailableTravels from '../components/availableTravels.jsx';
 import ProfileCards from '../components/ProfileCards.jsx';
 import CreateTravelForm from '../components/createTravelForm.jsx';
+import Map from '../components/map.jsx';
 import { useState } from 'react';
 
 // página de inicio - hasta ahora solo es para probar el routing
@@ -40,8 +41,9 @@ function HomePage() {
 
                     </div>
                     <div className='map-home'>
-
+                        <Map />
                         {isSearching===true && <AvailableTravels setissearching={setIsSearching} />}
+                        
 
                         <div id="publish-btn" onClick={() => setCreatingTravel(true)}>Crear Viaje</div>
                     </div>

@@ -6,6 +6,7 @@ Tecnologias del proyecto
 node.js
 react
 tailwind.css
+ApiGoogleMaps
 
 
 Estructura del proyecto
@@ -33,11 +34,12 @@ Como iniciar el proyecto
 
 3. Instalar dependencias
     npm i
+4. Obtener una api con las librerias necesarias para google maps(maps javaScript, directions API, PlacesAPI, etc.)
 
-4. Correr la pagina
+5. Correr la pagina
 npm run dev
 
-5. Abrir el puerto, que sale en la terminal de comandos, en el navegador 
+6. Abrir el puerto, que sale en la terminal de comandos, en el navegador 
 
 
 

@@ -19,7 +19,7 @@ function VerifyProfile({setisediting}) {
                     
                     
                     <button className="btnSubmit-form" onClick={() => {setisediting('')}}>Enviar archivos para verificación</button>
-                    <button className="exit-btn" onClick={() => setisediting('')}>x</button>
+                    <button className="exit-btn top-8 right-8" onClick={() => setisediting('')}>x</button>
 
                 </form>
             </div>

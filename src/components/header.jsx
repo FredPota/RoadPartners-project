@@ -32,7 +32,7 @@ function Header() {
                     alt="company-logo"
                     className="header-logo"
                 />
-                <span className="company-name">RoadPartners</span>
+                <span className="company-name">Viaje Compartido</span>
             </div>
 
             <nav className="nav-header">

@@ -16,7 +16,7 @@ function ChangePassword({setisediting}) {
                     </div>
 
                     <button className="btnSubmit-form" type="submit">Cambiar Contraseña</button>
-                    <button className="exit-btn" onClick={() => setisediting('')}>X</button>
+                    <button className="exit-btn top-8 right-8" onClick={() => setisediting('')}>X</button>
 
                 </form>
             </div>

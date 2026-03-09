@@ -34,8 +34,8 @@ function ProfilePage() {
                     <button className="menu-profile-btn" onClick={() => setActiveSection('travelHistory')}>Hist</button>
                 </nav>
                 <div id="profile-container">
-                    <div className="flex flex-row" id="profile-header">
-                        <img src="vite.svg" alt="profile-picture" />
+                    <div className="flex flex-row gap-5" id="profile-header">
+                        <img className='aspect-square w-40 p-5 rounded-full bg-PageLight-950' src="usuario.png" alt="profile-picture" />
                         <h1 className="text-6xl">John Doe</h1>
                     </div>
                     {activeSection === 'personalInfo' && (
@@ -50,11 +50,18 @@ function ProfilePage() {
                                             <label htmlFor="email">Email:</label>
                                             <input className="input-form" name="email" type="email" defaultValue="john.doe@example.com" />
                                         </div>
+                                        <div className='login-group'>
+                                            <label htmlFor="phone">Teléfono:</label>
+                                            <input className="input-form" name="phone" type="tel" defaultValue="123-456-7890" />
+                                        </div>
+                                        <p>Fecha de Nacimiento: 01/01/1990</p>
                                         <button className="btnSubmit-form" type="submit">Guardar Cambios</button>
                                     </form>
                                 ) : (
                                     <>
                                         <p>Email: john.doe@example.com</p>
+                                        <p>Teléfono: 123-456-7890</p>
+                                        <p>Fecha de Nacimiento: 01/01/1990</p>
                                     </>
                                 )}
 

@@ -4,6 +4,8 @@ import Header from '../components/header.jsx';
 import StarRating from '../components/starRating.jsx';
 import TravelCard from '../components/travelCard.jsx';
 import AvailableTravels from '../components/availableTravels.jsx';
+import ProfileCards from '../components/ProfileCards.jsx';
+import CreateTravelForm from '../components/createTravelForm.jsx';
 import { useState } from 'react';
 
 // página de inicio - hasta ahora solo es para probar el routing
@@ -11,6 +13,7 @@ import { useState } from 'react';
 function HomePage() {
     
     const [isSearching, setIsSearching] = useState(false);
+    const [creatingTravel, setCreatingTravel] = useState(false);
 
     const navigate = useNavigate();
     const goToLogin = () => {
@@ -40,8 +43,10 @@ function HomePage() {
 
                         {isSearching===true && <AvailableTravels setissearching={setIsSearching} />}
 
-                        <div id="publish-btn">Crear Viaje</div>
+                        <div id="publish-btn" onClick={() => setCreatingTravel(true)}>Crear Viaje</div>
                     </div>
+
+                    {creatingTravel==true && <CreateTravelForm onexit={setCreatingTravel} />}
                 </div>
                 {/* <div id="search-btn">Buscar Viaje</div> */}
 
@@ -59,6 +64,13 @@ function HomePage() {
                         <TravelCard travel={{ id: 1, destino: "Facultad de Ciencias Físico Matemáticas", rol: "Conductor", pasajeros: 2, fecha: "2025-10-01", hora: "10:00 am", costo: 40, distancia: 15, estado: "Terminado", rating: 5 }} />
                         <TravelCard travel={{ id: 2, destino: "Facultad de Informática", rol: "Pasajero", pasajeros: 3, fecha: "2025-10-02", costo: 200, distancia: 17, estado: "Terminado", rating: 4 }} />
 
+                    </ul>
+                </div>
+                <div className="recent-profiles-container text-center">
+                    <h3>Partners Recientes</h3>
+                    <ul className="list-container">
+                        <ProfileCards />
+                        <ProfileCards />
                     </ul>
                 </div>
 

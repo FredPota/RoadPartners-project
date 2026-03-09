@@ -18,7 +18,7 @@ function TravelCard({compact, travel, onclick}) {
                 </div>
             </div>
             <div className="flex flex-col gap-1">
-                <StarRating value={travel.rating} readOnly={true} />
+                <StarRating value={travel.rating} readOnly={travel.estado !== 'Terminado'} />
                 {(travel.rol=="Conductor" && travel.estado=="Próximo")  && (
                     <button className="profile-btn">Cancelar Viaje</button>
                 )}

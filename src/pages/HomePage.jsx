@@ -44,7 +44,16 @@ function HomePage() {
                     </div>
                 </div>
                 {/* <div id="search-btn">Buscar Viaje</div> */}
-                <div id="recentTravels-container" className="recent-travels-container">
+
+                <div id="sooner-travels-container" className="sooner-travels-container">
+                    <h3>Proximos Viajes</h3>
+                    <ul className="list-container max-w-2/3 mx-auto">
+                        <TravelCard travel={{ id: 1, destino: "Facultad de Ciencias Físico Matemáticas", rol: "Conductor", pasajeros: 2, fecha: "13 de marzo 10:00 am", hora: "10:00 am", costo: 40, distancia: 15, estado: "Próximo", rating: 0 }} />
+                        <TravelCard travel={{ id: 2, destino: "Facultad de Informática", rol: "Pasajero", pasajeros: 3, fecha: "12 de Marzo 8:00 am", costo: 200, distancia: 17, estado: "Próximo", rating: 0 }} />
+                        <TravelCard travel={{ id: 3, destino: "Facultad de Medicina", rol: "Conductor", pasajeros: 1, fecha: "14 de marzo 9:00 am", hora: "9:00 am", costo: 50, distancia: 20, estado: "Próximo", rating: 0 }} />
+                    </ul>
+                </div>
+                <div id="recentTravels-container" className="my-10">
                     <h3>Viajes Recientes</h3>
                     <ul className="list-container">
                         <TravelCard travel={{ id: 1, destino: "Facultad de Ciencias Físico Matemáticas", rol: "Conductor", pasajeros: 2, fecha: "2025-10-01", hora: "10:00 am", costo: 40, distancia: 15, estado: "Terminado", rating: 5 }} />

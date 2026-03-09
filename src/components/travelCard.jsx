@@ -17,7 +17,13 @@ function TravelCard({compact, travel, onclick}) {
                     <p className={compact ? "travel-history-card-compact-content" : "travel-history-card-content"}>{travel.estado}</p>
                 </div>
             </div>
-            <StarRating value={travel.rating} readOnly={true} />
+            <div className="flex flex-col gap-1">
+                <StarRating value={travel.rating} readOnly={true} />
+                {(travel.rol=="Conductor" && travel.estado=="Próximo")  && (
+                    <button className="profile-btn">Cancelar Viaje</button>
+                )}
+            </div>
+            
         </li>
     );
 }

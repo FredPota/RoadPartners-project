@@ -378,6 +378,42 @@
     w-screen
 }
 
+/*Car Section*/
+
+.car-card {
+    @apply
+    h-30
+    w-60
+    bg-PageLight-100
+    border border-PageLight-300
+    rounded-lg
+    text-white
+    flex items-start gap-4
+
+    transition-all duration-200 ease-in-out
+    hover:bg-PageLight-200
+    hover:inset-ring
+    hover:inset-ring-white
+    hover:cursor-pointer
+    focus:bg-PageLight-200
+    focus:inset-ring
+    focus:inset-ring-white 
+}
+
+.img-carCard {
+    @apply 
+    h-[70%] 
+    m-auto  
+    bg-PageLight-300 
+    rounded-lg 
+    ring-PageLight-300 
+    ring-5 
+    
+    group-hover:ring-PageLight-500 
+    group-hover:bg-PageLight-500 
+    transition-all duration-200 ease-in-out
+}
+
 
 /*Estilos Historial de Viajes*/
 

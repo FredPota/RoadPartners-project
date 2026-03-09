@@ -6,6 +6,7 @@ import TravelHistory from '../components/travelhistory.jsx';
 import ChangePassword from '../components/change-password.jsx';
 import VerifyProfile from '../components/verifyProfile.jsx';
 import PayMethodsList from '../components/payMethodsList.jsx';
+import CarSection from '../components/carSection.jsx';
 import '../assets/loginPage.css';
 import '../assets/containers.css';
 
@@ -101,6 +102,7 @@ function ProfilePage() {
                         </div>
                     )}
                     {activeSection === 'travelHistory' && <TravelHistory />}
+                    {activeSection === 'carProfile' && <CarSection /> }
 
                     <button className='profile-btn' onClick={goToHome}>Regresar a la HomePage</button>
                 </div>

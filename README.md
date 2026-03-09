@@ -1,16 +1,17 @@
-RoadPartners
+# Viajes Compartidos
+
 El proyecto consiste en una aplicacion web inspirada en uber donde el usuario peude compartir auto con un conductor para ir a un destino en común.
 
-Tecnologias del proyecto
+## Tecnologias del proyecto
 
-node.js
-react
-tailwind.css
-ApiGoogleMaps
+- node.js
+- react
+- tailwind.css
+- ApiGoogleMaps
 
+## Estructura del proyecto
 
-Estructura del proyecto
-
+```
 src/
   components/
   pages/
@@ -19,28 +20,49 @@ src/
   main.jsx
 public/
 index.html
+```
+**public**
+En la carpeta "public" se colocaran los recursos audiovisuales del proyecto
 
-"assets": En la carpeta "assets" se colocaran los recursos audiovisuales del proyecto y documentos de estilos de la pagina
+**assets**  
+En la carpeta "assets" se encontraran los documentos de estilos de la pagina.
 
-"components": En la carpeta "components" van a estar componentes que puedan ser reutilizables en el proyecto como el header, footer.
+**components**  
+En la carpeta "components" van a estar componentes de react que puedan ser reutilizables en el proyecto como el header, footer, formularios, etc.
 
-"pages": En la carpeta de "pages" estaran las paginas completas de cada funcionalidad, Ej. "LoginPage.jsx", "HomePage.jsx", etc.
+**pages**  
+En la carpeta de "pages" estaran las paginas completas de cada funcionalidad, Ej. "LoginPage.jsx", "HomePage.jsx", etc.
 
-Como iniciar el proyecto
+## Como iniciar el proyecto
 
 1. Abrir terminal (control + ñ, para abrir la terminal)
 
-2. Tener la Version de NodeJS del proyecto (v22.20.0) (usar "node -v" para ver version)
+2. Tener la Version de NodeJS del proyecto (v22.20.0) (usar `node -v` para ver version)
 
 3. Instalar dependencias
-    npm i
-4. Obtener una api con las librerias necesarias para google maps(maps javaScript, directions API, PlacesAPI, etc.)
 
-5. Correr la pagina
+```
+npm i
+```
+
+4. Obtener una api con las librerias necesarias para google maps  
+(maps javaScript, directions API, PlacesAPI, etc.)
+
+5. Crear un archivo .env en la raiz del proyecto y escribir esto ` VITE_GOOGLE_MAPS_KEY:  ` seguido de tu apiKey
+
+6. Correr la pagina
+
+```
 npm run dev
+```
 
-6. Abrir el puerto, que sale en la terminal de comandos, en el navegador 
+7. Abrir el puerto, que sale en la terminal de comandos, de visual navegador
 
+## Equipo de Desarrollo
+
+- Mario Alberto Sanchéz Hernández
+- Josué Rolando Carreon Guadián
+- Alfredo Emiliano Delgado Esquivel
 
 
 

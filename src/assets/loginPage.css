@@ -120,7 +120,7 @@
 }
 
 .exit-btn {
-    @apply absolute top-1/10 right-1/10
+    @apply absolute
     text-PageLight-300
     border-PageLight-300
     hover:text-PageLight-100

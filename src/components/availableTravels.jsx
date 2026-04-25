@@ -11,10 +11,14 @@ function AvailableTravels({setissearching}) {
             flex-1 m-5 p-5 pr-5 
             rounded-4xl 
             text-PageDark-950
-            right-0
-            z-99998">
+            left-[100%]
+            translate-x-[-110%]
+            transition-all duration-300 ease-in-out
+            z-99998"
+            
+            >
                 <h2 className="title-form h-auto pr-5">Viajes Disponibles</h2>
-                <div className='list-container-vertical bg-PageLight-800 rounded-md h-80 p-1'>
+                <div className='list-container-vertical bg-white rounded-md h-80 p-1'>
                     <AvailableTravelCard />
                     <AvailableTravelCard />
                     <AvailableTravelCard />

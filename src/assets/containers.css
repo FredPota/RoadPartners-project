@@ -59,15 +59,14 @@
     @apply 
     w-full
     h-30
-    bg-PageLight-100
+    bg-white
     border border-PageLight-300
     rounded-lg
-    text-white
+    text-gray-950
     flex flex-col items-start gap-4
 
     transition-all duration-200 ease-in-out
-    hover:bg-PageLight-200
-    hover:inset-ring
+    hover:inset-ring-2
     hover:inset-ring-white
     hover:cursor-pointer
     focus:bg-PageLight-200

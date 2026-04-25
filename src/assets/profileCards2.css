@@ -1,0 +1,115 @@
+@import "tailwindcss";
+@import "./palleteColors.css";
+
+.pc-card {
+  @apply
+    flex flex-col items-center gap-3
+    bg-LightBlue/20
+    border border-black/10
+    rounded-xl
+    p-5
+    w-48
+    flex-shrink-0
+    cursor-pointer
+    text-left
+    overflow-hidden
+    select-none
+    transition-all duration-150 ease-in-out
+    hover:bg-white/80
+    hover:-translate-y-1
+    hover:shadow-lg
+    hover:border-black/20;
+}
+
+/* ── Contenedor avatar (necesario para posicionar el badge) ── */
+.pc-avatar-container {
+  @apply relative flex-shrink-0
+  bg-white
+  rounded-full;
+}
+
+/* ── Badge de verificación ────────────────────────────────── */
+.pc-verified-badge {
+  @apply
+    absolute -bottom-1 -right-1
+    w-5 h-5
+    rounded-full
+    bg-[#1D9E75]
+    border-2 border-white
+    flex items-center justify-center
+    shadow-sm;
+}
+
+/* ── Avatar ───────────────────────────────────────────────── */
+.pc-avatar-wrap {
+  @apply
+    w-20 h-20
+    rounded-full
+    overflow-hidden
+    flex-shrink-0
+    ring-0 ring-white
+    shadow-sm
+    transition-all duration-150 ease-in-out
+    group-hover:ring-4
+    group-hover:ring-PageGreen-300
+    group-hover:shadow-md;
+}
+
+.pc-avatar-img {
+  @apply w-full
+  p-4
+
+  object-cover;
+}
+
+.pc-avatar-fallback {
+  @apply
+    w-full h-full
+    bg-[#E6F1FB]
+    flex items-center justify-center
+    text-[#378ADD]
+    transition-colors duration-150 ease-in-out
+    group-hover:bg-[#E1F5EE]
+    group-hover:text-[#1D9E75];
+}
+
+/* ── Cuerpo ───────────────────────────────────────────────── */
+.pc-body {
+  @apply flex flex-col items-center gap-1.5 w-full;
+}
+
+.pc-name {
+  @apply
+    text-[14px] font-bold
+    text-gray-900
+    transition-colors duration-150
+    group-hover:text-[#0F6E56];
+}
+
+.pc-trip-badge {
+  @apply
+    flex items-center gap-1
+    text-[11px] text-gray-500
+    text-center leading-snug;
+}
+
+.pc-date {
+  @apply
+    text-[10px] font-medium
+    text-gray-400
+    bg-gray-100
+    px-2 py-0.5
+    rounded-full
+    transition-colors duration-150
+    group-hover:bg-[#E1F5EE]
+    group-hover:text-[#0F6E56];
+}
+
+/* ── Footer: rating ──────────────────────────────────────── */
+.pc-footer {
+  @apply
+    pt-2
+    w-full
+    flex justify-center
+    border-t border-black/[0.06];
+}

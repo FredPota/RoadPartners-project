@@ -259,8 +259,7 @@
 /*HOME - Recent persons*/
 
 .recent-profiles-container {
-    @apply w-2/3
-    max-w-300
+    @apply w-[150%]
     h-auto
     flex flex-col items-start gap-4
     p-10

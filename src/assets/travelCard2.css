@@ -129,7 +129,8 @@
     flex items-center justify-center flex-shrink-0
     border border-black/10
     text-gray-800
-    text-sm
+    text-[12px]
+    px-5
     bg-gray-50
     cursor-pointer
     transition-all duration-150 ease-in-out

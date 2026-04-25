@@ -97,7 +97,7 @@ function TravelCard2({ compact, travel, onclick }) {
               onClick={handleDelete}
             >
               <TrashIcon />
-              <p">Borrar</p>
+              <p>Borrar</p>
             </button></>
           )}
         </div>

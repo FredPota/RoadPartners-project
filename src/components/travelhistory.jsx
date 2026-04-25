@@ -10,7 +10,7 @@ function TravelHistory() {
 
     return(
         <div className="travel-history-container relative">
-            <h1 className="subtitle-form bg-[#262626] left-15 top-5">Historial de Viajes</h1>
+            <h1 className="subtitle-form bg-[#eaffff] left-15 top-5 text-gray-950">Historial de Viajes</h1>
             <ul className="travel-history-list"                                              //viajes de prueba
                 onWheel={(e) => {
                     e.currentTarget.scrollLeft += e.deltaY; 

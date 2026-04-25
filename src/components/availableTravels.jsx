@@ -11,7 +11,7 @@ function AvailableTravels({setissearching}) {
             flex-1 m-5 p-5 pr-5 
             rounded-4xl 
             text-PageDark-950
-            left-[100%]
+            left-full
             translate-x-[-110%]
             transition-all duration-300 ease-in-out
             z-99998"

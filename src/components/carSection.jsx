@@ -18,22 +18,23 @@ function CarSection() {
     }
 
     return (
-        <div className='relative flex flex-col h-auto w-200 gap-5'>
+        <div className='relative flex h-auto w-[90%] gap-5'>
             <div className="verified-cars-container h-full">
-                <h3 className='bg-[#262626] p-2 absolute -top-5 left-5'>Tus vehiculos</h3>
+                <h3 className='bg-[#eaffff] p-2 absolute -top-5 left-5 text-gray-900'>Tus vehiculos</h3>
                 <ul className="list-container h-full">
                     <CarCard car={{ make: 'Toyota', model: 'Corolla', year: 2020, color: 'Verde', plates: 'ABC-123' }} />
                 </ul>
-            </div>
-
-            <button className="profile-btn w-1/3 ml-15" onClick={handleAddCar}>
+                <button className="profile-btn w-1/3 ml-15" onClick={handleAddCar}>
                 Agregar Vehículo
             </button>
+            </div>
+
+            
 
                 {showCarForm && <CarForm onexit={() => setShowCarForm(false)} />}
 
-            <div className='relative login-form w-150 max-w-auto' >
-                <div className='absolute bg-[#262626] p-2 -top-5 left-2'>Detalles del vehiculo</div>
+            <div className='relative login-form mt-10 w-150 max-w-auto text-gray-900' >
+                <div className='absolute bg-[#eaffff] p-2 -top-5 left-2 text-gray-900'>Detalles del vehiculo</div>
                 <div className='login-group text-2xl font-semibold'>
                     <div className='' id="carMark">Toyota</div>
                     <div id="carModel"> Carolla </div>
@@ -45,9 +46,9 @@ function CarSection() {
                 <div id="seguro">No Asegurado</div>
                 <div className="nav-btns gap-5">
                     <button className="profile-btn">Eliminar Vehículo</button>
-                    {/* <button className="profile-btn" onClick={handleAddInsurance}>
+                    <button className="profile-btn" onClick={handleAddInsurance}>
                         Asegurar Vehículo
-                    </button> */}
+                    </button>
                     {showInsuranceForm && <InsuranceForm onexit={() => setShowInsuranceForm(false)} />}
                 </div>
                 

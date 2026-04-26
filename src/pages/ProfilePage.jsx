@@ -14,15 +14,26 @@ function ProfilePage() {
 
     const [activeSection, setActiveSection] = useState('personalInfo');
     const [isEditing, setIsEditing] = useState('');
-    const [cardAction, setCardAction] =useState('');
+    const [cardAction, setCardAction] = useState('');
 
     const navigate = useNavigate();
+
+    // 🟢 USUARIO REAL (opcional pero útil)
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // 🔥 LOGOUT REAL
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        console.log("🚪 Sesión cerrada correctamente");
+
+        navigate("/login");
+    };
+
     const goToHome = () => {
         navigate('/');
-    }
-    const goToLogin = () => {
-        navigate('/login');
-    }
+    };
 
     return (
         <div>
@@ -31,14 +42,19 @@ function ProfilePage() {
                 <nav className="nav-profile">
                     <button className="menu-profile-btn" onClick={() => setActiveSection('personalInfo')}>Info</button>
                     <button className="menu-profile-btn" onClick={() => setActiveSection('carProfile')}>Car</button>
-                    {/* <button className="menu-profile-btn" onClick={() => setActiveSection('paymentMethods')}>Pay</button> */}
                     <button className="menu-profile-btn" onClick={() => setActiveSection('travelHistory')}>Hist</button>
                 </nav>
+
                 <div id="profile-container">
+
+                    {/* 🟢 NOMBRE REAL */}
                     <div className="flex flex-row gap-5" id="profile-header">
                         <img className='aspect-square w-40 p-5 rounded-full bg-PageLight-950' src="usuario.png" alt="profile-picture" />
-                        <h1 className="text-6xl">John Doe</h1>
+                        <h1 className="text-6xl">
+                            {user ? user.nombre : "Usuario"}
+                        </h1>
                     </div>
+
                     {activeSection === 'personalInfo' && (
                         <div>
                             <div className="text-left" id="profile-content">
@@ -48,34 +64,35 @@ function ProfilePage() {
                                 {isEditing === 'info' ? (
                                     <form className="flex flex-col gap-4">
                                         <div className='login-group'>
-                                            <label htmlFor="email">Email:</label>
-                                            <input className="input-form" name="email" type="email" defaultValue="john.doe@example.com" />
+                                            <label>Email:</label>
+                                            <input className="input-form" type="email" defaultValue={user?.correo} />
                                         </div>
                                         <div className='login-group'>
-                                            <label htmlFor="phone">Teléfono:</label>
-                                            <input className="input-form" name="phone" type="tel" defaultValue="123-456-7890" />
+                                            <label>Teléfono:</label>
+                                            <input className="input-form" type="tel" defaultValue={user?.telefono} />
                                         </div>
-                                        <p>Fecha de Nacimiento: 01/01/1990</p>
                                         <button className="btnSubmit-form" type="submit">Guardar Cambios</button>
                                     </form>
                                 ) : (
                                     <>
-                                        <p>Email: john.doe@example.com</p>
-                                        <p>Teléfono: 123-456-7890</p>
-                                        <p>Fecha de Nacimiento: 01/01/1990</p>
+                                        <p>Email: {user?.correo}</p>
+                                        <p>Teléfono: {user?.telefono}</p>
                                     </>
                                 )}
 
+                                <nav className="nav-btns gap-1"> 
+                                    <button className="profile-btn" onClick={() => setIsEditing('verify')}>Verificar Perfil</button>
+                                    <button className="profile-btn" onClick={() => setIsEditing('info')}>Editar Información Personal</button>
+                                    <button className="profile-btn" onClick={() => setIsEditing('password')}>Cambiar Contraseña</button>
 
-                            <nav className="nav-btns gap-1"> 
-                                <button className="profile-btn" onClick={() => setIsEditing('verify')}>Verificar Perfil</button>
-                                <button className="profile-btn" onClick={() => setIsEditing('info')}>Editar Información Personal</button>
-                                <button className="profile-btn" onClick={() => setIsEditing('password')}>Cambiar Contraseña</button>
-                                <button className="profile-btn" onClick={goToLogin}>Cerrar Sesión</button>
-                            </nav>
+                                    {/* 🔴 BOTÓN CORREGIDO */}
+                                    <button className="profile-btn" onClick={handleLogout}>
+                                        Cerrar Sesión
+                                    </button>
+                                </nav>
+
+                            </div>
                         </div>
-
-                    </div>
                     )}
 
                     {isEditing === 'password' && <ChangePassword setisEditing={setIsEditing} />}
@@ -88,7 +105,6 @@ function ProfilePage() {
                                     <div className="flex h-auto w-auto p-15 rounded-3xl bg-[#262626]">
                                         <PaymentForm cardmodal={cardAction} setcardmodal={setCardAction} />
                                     </div>
-                                    
                                 </div>
                             )}
                             {cardAction === 'edit' && (
@@ -96,15 +112,14 @@ function ProfilePage() {
                                     <div className="flex h-auto w-auto p-15 rounded-3xl bg-[#262626]">
                                         <PaymentForm cardmodal={cardAction} setcardmodal={setCardAction} />
                                     </div>
-                                    
                                 </div>
                             )}
                         </div>
                     )}
+
                     {activeSection === 'travelHistory' && <TravelHistory />}
                     {activeSection === 'carProfile' && <CarSection /> }
 
-                    {/* <button className='profile-btn' onClick={goToHome}>Regresar a la HomePage</button> */}
                 </div>
             </div>
         </div>

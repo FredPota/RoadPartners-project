@@ -25,6 +25,7 @@
     ;
     
   }
+  
 
 /* Variante compacta (misma estructura, ancho menor) */
 .tc-card--compact {
@@ -137,4 +138,16 @@
     hover:text-white/700
     hover:bg-red-400
     hover:border-red-300;
+}
+
+.tc-card--light {
+  @apply bg-white border-black/10;
+}
+
+.tc-card--light .tc-dest {
+  @apply text-gray-900;
+}
+
+.tc-card--light .tc-meta-row {
+  @apply text-gray-500;
 }

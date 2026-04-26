@@ -5,10 +5,11 @@ import StarRating from "./starRating";
  - travel   : objeto con { destino, rol, costo, fecha, estado, rating }
  - compact  : boolean — vista compacta (columna) vs normal (fila)
  - onclick  : función al hacer click en la card
+- cardStyle : string para saber si esta en modo oscuro o light en diseño
  */
 import "../assets/travelCard2.css";
 
-function TravelCard2({ compact, travel, onclick }) {
+function TravelCard2({ compact, travel, onclick, cardStyle }) {
   const isDriver    = travel.rol === "Conductor";
   const isNext      = travel.estado === "Próximo";
   const isDone      = travel.estado === "Terminado";
@@ -34,7 +35,7 @@ function TravelCard2({ compact, travel, onclick }) {
 
   if (compact) {
     return (
-      <li className="tc-card tc-card--compact group" onClick={onclick}>
+      <li className={`tc-card tc-card--compact ${cardStyle=="light" ? 'tc-card--light' : 'tc-card--dark'} group`} onClick={onclick}>
         <div className="tc-accent" style={{ background: accentColor }} />
         <div className="tc-top">
           <div className="tc-thumb" style={{ background: thumbBg }}>
@@ -60,7 +61,7 @@ function TravelCard2({ compact, travel, onclick }) {
   }
 
   return (
-    <li className="tc-card group" onClick={onclick}>
+    <li className={`tc-card ${cardStyle=="light" ? 'tc-card--light' : 'tc-card--dark'} group`} onClick={onclick}>
       <div className="tc-accent" style={{ background: accentColor }} />
 
       <div className="tc-top">

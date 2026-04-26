@@ -25,8 +25,8 @@ function Header() {
 
     return (
         <header className="header-container">
-
-            <div className="login-group group" onClick={goHome}>
+            {/* Logo con interactividad más suave */}
+            <div className="company-btn" onClick={goHome}>
                 <img
                     src="/auto.png"
                     alt="company-logo"
@@ -36,35 +36,26 @@ function Header() {
             </div>
 
             <nav className="nav-header">
-                <button className="nav-header-btn"
-                    onClick={goHome}
-                >
-                    Home
+                <button className="nav-header-btn" onClick={goHome}>
+                    Inicio
                 </button>
-                <button
-                    className="nav-header-btn"
-                    onClick={goProfile}
-                >
-                    Mi Perfil
-                </button>
-                <button 
-                    className="nav-header-btn"
-                    onClick={goProfile}
-                >
+                <button className="nav-header-btn" onClick={goProfile}>
                     Mis Viajes
                 </button>
+                
+                {/* Separador visual opcional */}
+                <div className="h-6 w-[1px] bg-gray-200 mx-2"></div>
+
                 <Dropdown
                     options={[
+                        { label: 'Mi Perfil', value: 'profile', onClick: goProfile },
                         { label: 'Iniciar Sesión', value: 'login', onClick: goLogin },
                         { label: 'Registrarse', value: 'register', onClick: goRegister },
                         { label: 'Cerrar Sesión', value: 'logOut', onClick: goLogin}
                     ]}
                     dropdownName="Cuenta"
                 /> 
-
-
             </nav>
-
         </header>
     );
 }

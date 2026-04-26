@@ -17,10 +17,10 @@ function TravelCard({compact, travel, onclick}) {
                     <p className={compact ? "travel-history-card-compact-content" : "travel-history-card-content"}>{travel.estado}</p>
                 </div>
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-3 h-full">
                 <StarRating value={travel.rating} readOnly={travel.estado !== 'Terminado'} />
                 {(travel.rol=="Conductor" && travel.estado=="Próximo")  && (
-                    <button className="profile-btn">Cancelar Viaje</button>
+                    <button className="card-delete-btn"><img className={compact ? "img-delete-travel-history-card" : "img-delete-travel-history-card"} src="cubo-de-basura.png" alt="" /></button>
                 )}
             </div>
             

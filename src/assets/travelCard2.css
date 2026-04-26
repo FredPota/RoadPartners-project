@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@import "./palleteColors.css";
+
+
+
+.tc-card {
+  @apply
+    relative flex flex-col gap-2
+    bg-DarkBlue/5
+    border border-DarkBlue/50
+    rounded-xl
+    p-4
+    w-60
+    my-10
+    flex-shrink-0
+    cursor-pointer
+    overflow-hidden
+    select-none
+    transition-all duration-150 ease-in-out
+    hover:shadow-md
+    hover:shadow-white/20
+    hover:inset-ring-2
+    hover:bg-DarkBlue/25
+    hover:inset-ring-PageGreen-100
+    ;
+    
+  }
+  
+
+/* Variante compacta (misma estructura, ancho menor) */
+.tc-card--compact {
+  @apply w-48;
+}
+
+/* ── Franja de color superior (rol) ──────────────────────── */
+.tc-accent {
+  @apply absolute top-0 left-0 right-0 h-[3px] rounded-t-xl;
+  /* El color se aplica inline desde el JSX */
+}
+
+/* ── Sección superior: thumb + info ──────────────────────── */
+.tc-top {
+  @apply flex items-start gap-3 mt-1;
+}
+
+.tc-thumb {
+  @apply flex-shrink-0 w-13 h-13 rounded-[10px]
+    flex items-center justify-center;
+  /* El fondo se aplica inline desde el JSX */
+}
+
+.tc-info {
+  @apply flex flex-col gap-1 min-w-0;
+}
+
+.tc-dest {
+  @apply text-[13px] font-semibold text-gray-100
+    truncate leading-snug;
+}
+
+/* ── Badge de rol ─────────────────────────────────────────── */
+.tc-role-badge {
+  @apply inline-flex items-center
+    text-[10px] font-semibold
+    px-2 py-0.5 rounded-full w-fit;
+}
+
+.tc-role-driver {
+  background-color: #E1F5EE;
+  color: #0F6E56;
+}
+
+.tc-role-passenger {
+  
+  background-color: #E6F1FB;
+  color: #185FA5;
+}
+
+/* ── Metadatos (fecha, origen) ────────────────────────────── */
+.tc-meta {
+  @apply flex flex-col gap-1.5;
+}
+
+.tc-meta-row {
+  @apply flex items-center gap-1.5
+    text-[11px] text-gray-200
+    truncate;
+}
+
+/* ── Footer: rating + estado + costo + eliminar ───────────── */
+.tc-footer {
+  @apply flex items-end justify-between
+    pt-2.5
+    border-t border-black/[0.06];
+}
+
+.tc-footer-left {
+  @apply flex flex-col gap-1.5;
+}
+
+.tc-footer-right {
+  @apply flex flex-col items-end gap-1.5;
+}
+
+/* ── Costo ────────────────────────────────────────────────── */
+.tc-cost {
+  @apply text-[13px] font-bold text-gray-100;
+}
+
+/* ── Píldora de estado ────────────────────────────────────── */
+.tc-status-pill {
+  @apply text-[10px] font-semibold
+    px-2 py-0.5 rounded-full w-fit;
+}
+
+.tc-status-next {
+  background-color: #FAEEDA;
+  color: #854F0B;
+}
+
+.tc-status-done {
+  background-color: #EAF3DE;
+  color: #3B6D11;
+}
+
+/* ── Botón eliminar ───────────────────────────────────────── */
+.tc-delete-btn {
+  @apply
+    w-7 h-7 rounded-lg
+    flex items-center justify-center flex-shrink-0
+    border border-black/10
+    text-gray-800
+    text-[12px]
+    px-5
+    bg-gray-50
+    cursor-pointer
+    transition-all duration-150 ease-in-out
+    hover:text-white/700
+    hover:bg-red-400
+    hover:border-red-300;
+}
+
+.tc-card--light {
+  @apply bg-white border-black/10;
+}
+
+.tc-card--light .tc-dest {
+  @apply text-gray-900;
+}
+
+.tc-card--light .tc-meta-row {
+  @apply text-gray-500;
+}

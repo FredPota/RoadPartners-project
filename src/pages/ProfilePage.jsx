@@ -31,7 +31,7 @@ function ProfilePage() {
                 <nav className="nav-profile">
                     <button className="menu-profile-btn" onClick={() => setActiveSection('personalInfo')}>Info</button>
                     <button className="menu-profile-btn" onClick={() => setActiveSection('carProfile')}>Car</button>
-                    <button className="menu-profile-btn" onClick={() => setActiveSection('paymentMethods')}>Pay</button>
+                    {/* <button className="menu-profile-btn" onClick={() => setActiveSection('paymentMethods')}>Pay</button> */}
                     <button className="menu-profile-btn" onClick={() => setActiveSection('travelHistory')}>Hist</button>
                 </nav>
                 <div id="profile-container">
@@ -43,7 +43,7 @@ function ProfilePage() {
                         <div>
                             <div className="text-left" id="profile-content">
 
-                                <p className='subtitle-form bg-[#262626] -top-4'>Información Personal</p>
+                                <p className='subtitle-form bg-[#eaffff] -top-4'>Información Personal</p>
 
                                 {isEditing === 'info' ? (
                                     <form className="flex flex-col gap-4">
@@ -104,7 +104,7 @@ function ProfilePage() {
                     {activeSection === 'travelHistory' && <TravelHistory />}
                     {activeSection === 'carProfile' && <CarSection /> }
 
-                    <button className='profile-btn' onClick={goToHome}>Regresar a la HomePage</button>
+                    {/* <button className='profile-btn' onClick={goToHome}>Regresar a la HomePage</button> */}
                 </div>
             </div>
         </div>

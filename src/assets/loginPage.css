@@ -103,18 +103,19 @@
 
 .btnSubmit-form {
   @apply
-  bg-PageGreen-500
+  bg-DarkBlue/60
   text-white
   mt-5
   px-12
   py-1
   rounded-full
   border-0
-  inset-ring-PageGreen-300
-  hover:bg-PageGreen-800
+  inset-ring-MediumBlue
+  hover:bg-MediumBlue
   hover:inset-ring-2
-  hover:inset-ring-PageGreen-500
-  focus:outline-none focus:ring-2 focus:ring-PageGreen-500
+  hover:inset-ring-white/40
+  focus:outline-none 
+  focus:ring-2
 
   transition-all duration-200 ease-in-out
   

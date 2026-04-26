@@ -150,11 +150,14 @@ function CarSection({ cars = MOCK_CARS }) {
   );
 }
 
+
 /* ── Mock data (reemplaza con tus datos reales) ──────────── */
 const MOCK_CARS = [
   { id: 1, make: 'Toyota', model: 'Corolla', year: 2020, color: 'Verde',  plates: 'ABC-123', capacity: 5, insured: true  },
   { id: 2, make: 'Honda',  model: 'Civic',   year: 2019, color: 'Blanco', plates: 'XYZ-456', capacity: 5, insured: false },
 ];
+
+
 
 /* ── Íconos ──────────────────────────────────────────────── */
 function CarIcon({ color }) {

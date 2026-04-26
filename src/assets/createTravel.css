@@ -1,0 +1,188 @@
+@import "tailwindcss";
+@import "./palleteColors.css";
+
+.ctf-modal {
+  @apply relative
+    bg-white
+    rounded-2xl
+    shadow-2xl
+    p-7
+    w-full max-w-md
+    flex flex-col gap-5
+    mx-4;
+}
+ 
+/* ── Botón cerrar ─────────────────────────────────────────── */
+.ctf-close-btn {
+  @apply absolute top-4 right-4
+    w-7 h-7 rounded-full
+    flex items-center justify-center
+    border border-black/10
+    bg-gray-50
+    text-gray-400
+    cursor-pointer
+    transition-all duration-150
+    hover:bg-red-50
+    hover:text-red-400
+    hover:border-red-200;
+}
+ 
+/* ── Header ───────────────────────────────────────────────── */
+.ctf-header { @apply text-center; }
+ 
+.ctf-title {
+  @apply text-[16px] font-bold text-gray-900;
+}
+ 
+.ctf-subtitle {
+  @apply text-[11px] text-gray-400 mt-1;
+}
+ 
+/* ── Divider ──────────────────────────────────────────────── */
+.ctf-divider {
+  border: none;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+}
+ 
+/* ── Sección ──────────────────────────────────────────────── */
+.ctf-section {
+  @apply flex flex-col gap-2;
+}
+ 
+.ctf-section-label {
+  @apply flex items-center gap-1.5
+    text-[10px] font-semibold uppercase tracking-wide
+    text-gray-700;
+}
+ 
+.ctf-required { @apply text-red-400; }
+ 
+/* ── Ruta ─────────────────────────────────────────────────── */
+.ctf-route-block {
+  @apply border border-black/10 rounded-xl overflow-hidden;
+}
+ 
+.ctf-route-row {
+  @apply flex items-center gap-3 px-3 py-2.5
+    bg-white
+    transition-colors duration-150
+    focus-within:bg-gray-50;
+}
+ 
+.ctf-route-sep {
+  height: 0.5px;
+  @apply bg-black/[0.06] mx-3;
+}
+ 
+.ctf-route-dot {
+  @apply w-2 h-2 rounded-full flex-shrink-0;
+}
+ 
+.ctf-dot-origin { background-color: #1D9E75; }
+.ctf-dot-dest   { background-color: #378ADD; }
+ 
+.ctf-route-input {
+  @apply flex-1 border-none outline-none bg-transparent
+    text-[13px] text-gray-900;
+  font-family: inherit;
+}
+.ctf-route-input::placeholder { @apply text-gray-400; }
+ 
+/* ── Inputs base ──────────────────────────────────────────── */
+.ctf-input {
+  @apply w-full px-3 py-2.5
+    border border-black/10
+    rounded-xl
+    text-[13px] text-gray-900
+    bg-white
+    outline-none
+    transition-all duration-150
+    focus:border-[#1D9E75]
+    placeholder:text-gray-400;
+  font-family: inherit;
+  box-shadow: none;
+}
+ 
+.ctf-input:focus {
+  box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.1);
+}
+ 
+/* Input con ícono */
+.ctf-input-icon-wrap { @apply relative; }
+.ctf-input--icon     { @apply pl-9; }
+.ctf-input-icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2
+    text-gray-400 pointer-events-none;
+}
+ 
+/* Input con sufijo */
+.ctf-input-suffix-wrap { @apply relative; }
+.ctf-input--suffix     { @apply pr-12; }
+.ctf-suffix {
+  @apply absolute right-3 top-1/2 -translate-y-1/2
+    text-[11px] font-semibold text-gray-400
+    pointer-events-none;
+}
+ 
+/* ── Select ───────────────────────────────────────────────── */
+.ctf-select {
+  @apply w-full px-3 py-2.5
+    border border-black/10
+    rounded-xl
+    text-[13px] text-gray-900
+    bg-white
+    outline-none
+    cursor-pointer
+    transition-all duration-150
+    focus:border-[#1D9E75];
+  font-family: inherit;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+ 
+.ctf-select:focus {
+  box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.1);
+}
+ 
+/* ── Car preview ──────────────────────────────────────────── */
+.ctf-car-preview {
+  @apply flex items-center gap-2
+    px-3 py-2
+    rounded-xl
+    text-[11px] font-medium;
+  background-color: #E1F5EE;
+  color: #0F6E56;
+}
+ 
+/* ── Row y field ──────────────────────────────────────────── */
+.ctf-row   { @apply flex gap-3; }
+.ctf-row > * { @apply flex-1; }
+ 
+.ctf-field { @apply flex flex-col gap-1.5; }
+ 
+.ctf-label {
+  @apply text-[11px] font-medium text-gray-500;
+}
+ 
+.ctf-hint {
+  @apply text-[10px] text-gray-400;
+}
+ 
+/* ── Botón submit ─────────────────────────────────────────── */
+.ctf-submit-btn {
+  @apply w-full flex items-center justify-center gap-2
+    py-3 rounded-xl
+    text-[13px] font-semibold text-white
+    border-0 cursor-pointer
+    transition-all duration-150;
+  background-color: #1D9E75;
+  font-family: inherit;
+}
+ 
+.ctf-submit-btn:hover {
+  background-color: #178a64;
+  box-shadow: 0 4px 12px rgba(29, 158, 117, 0.25);
+}

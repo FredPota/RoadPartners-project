@@ -75,25 +75,26 @@ function LoginForm() {
     };
 
     return (
-        <form onSubmit={handleLogin} className="login-form">
+        
+        <form onSubmit={handleLogin} className="login-container">
 
             <h2>Iniciar Sesión</h2>
 
-            <input
+            <input className="input-form"
                 type="email"
                 placeholder="Correo"
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
             />
 
-            <input
+            <input className="input-form"
                 type="password"
                 placeholder="Contraseña"
                 value={contraseña}
                 onChange={(e) => setContraseña(e.target.value)}
             />
 
-            <button type="submit">Entrar</button>
+            <button className="btnSubmit-form" type="submit">Entrar</button>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
 

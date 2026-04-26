@@ -10,9 +10,24 @@ import ProfileCards2 from '../components/ProfileCards2.jsx';
 import CreateTravelForm from '../components/createTravelForm.jsx';
 import Map from '../components/map.jsx';
 import { useState } from 'react';
+import { LocationIcon } from '../components/createTravelForm.jsx';
 
 // página de inicio - hasta ahora solo es para probar el routing
 // Aqui se hara la busqueda de viajes, se mostraran los viajes disponibles, y se podran filtrar por diferentes criterios (origen, destino, fecha, etc)
+
+const user = {
+    name: "Freddy",
+    lastName: "García",
+    email: "freddy.garcia@example.com",
+    phone: "123-456-7890",
+    registerDate: "2023-01-01",
+    rating: 4.5,
+    MOCK_CARS: [
+        { id: 1, make: "Toyota", model: "Corolla", color: "#010101", year: 2020, plates: "ABC-123", capacity: 4 },
+        { id: 2, make: "Honda", model: "Civic", color: "#010101", year: 2019, plates: "XYZ-456", capacity: 5 },
+        { id: 3, make: "Ford", model: "Focus", color: "#010101", year: 2021, plates: "DEF-789", capacity: 5 }
+    ],
+};
 
 const lastPartners = [
     { name: "María García", date: "14 de marzo", dest: "Facultad de Informática", photoSrc: null, verified: true },
@@ -38,8 +53,9 @@ function HomePage() {
                     <div className='travel-container'>
                         <form className='travel-form' action="">
                             <h3 className='title-form'>Encuentra un viaje</h3>
-                            <div className='login-group'>
-
+                            <div className='flex items-center gap-2 text-[12px]'>
+                                <LocationIcon />
+                                <p className=' text-center text-gray-600'>Puntos de Ruta</p>
                             </div>
                             <input placeholder='Punto de salida: ' type="text" name="start-origin" id="start-origin" className="input-form" />
                             <input placeholder='Destino: ' type="text" name="start-destiny" id="start-destiny" className="input-form" />
@@ -56,7 +72,7 @@ function HomePage() {
                         <div id="publish-btn" onClick={() => setCreatingTravel(true)}>Crear Viaje</div>
                     </div>
 
-                    {creatingTravel==true && <CreateTravelForm onexit={setCreatingTravel} />}
+                    {creatingTravel==true && <CreateTravelForm onexit={setCreatingTravel} UserCarList={user.MOCK_CARS} />}
                 </div>
                 {/* <div id="search-btn">Buscar Viaje</div> */}
 

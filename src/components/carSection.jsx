@@ -12,7 +12,7 @@ const ANIMATION = {
   transition: { duration: 0.2, ease: 'easeOut' },
 };
 
-function CarSection({ cars = MOCK_CARS }) {
+function CarSection({ user, cars = MOCK_CARS }) {
   const [showCarForm, setShowCarForm]           = useState(false);
   const [showInsuranceForm, setShowInsuranceForm] = useState(false);
   const [selectedCar, setSelectedCar]           = useState(cars[0] ?? null);
@@ -144,7 +144,7 @@ function CarSection({ cars = MOCK_CARS }) {
       </div>
 
       {/* Formularios */}
-      {showCarForm      && <CarForm      onexit={() => setShowCarForm(false)} />}
+      {showCarForm      && <CarForm user={user}     onexit={() => setShowCarForm(false)} />}
       {showInsuranceForm && <InsuranceForm onexit={() => setShowInsuranceForm(false)} />}
     </div>
   );

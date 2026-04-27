@@ -118,3 +118,30 @@ The React Compiler is currently not compatible with SWC. See [this issue](https:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+##COMO INICIAR EL BACKEND
+
+###Requisitos
+- Tener [Node.js](https://nodejs.org/) instalado
+- Tener [MongoDB](https://www.mongodb.com/try/download/community) instalado y corriendo
+
+###Pasos para iniciar backend
+1. **Iniciar MongoDB** (en PowerShell como Administrador):
+   ```bash
+   net start MongoDB
+2. **Comprobar status** (en Powershell)
+
+Get-Service MongoDB
+
+deberás ver status = Running 
+
+3. **En Visual Studio Code**
+
+Abrir una terminal y colocar la ruta donde se encuentre el backend
+
+Ejemplo: cd C:\Users\nombrecarpeta\backend
+
+4. **En Visual Studio Code**
+
+Ejecutar comando para iniciar = npm start

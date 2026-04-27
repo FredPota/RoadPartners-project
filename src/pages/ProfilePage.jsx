@@ -17,8 +17,7 @@ function ProfilePage() {
     const [cardAction, setCardAction] = useState('');
     const [userCars, setUserCars] = useState([]);
     const [userTravels, setUserTravels] = useState([]);
-    const [userCars, setUserCars] = useState([]);
-    const [userTravels, setUserTravels] = useState([]);
+
 
     const navigate = useNavigate();
 

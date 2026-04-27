@@ -5,7 +5,9 @@ import TravelCard from "./travelCard.jsx";
 import TravelCard2 from "./travelCard2.jsx";
 import { useState } from "react";
 
-function TravelHistory() {
+function TravelHistory({travelList}) {
+
+    const [ListTravels, setListTravels] = useState(travelList);
 
     const [selectedTravel, setSelectedTravel] = useState(null);
 
@@ -26,9 +28,22 @@ function TravelHistory() {
                     e.currentTarget.scrollLeft += e.deltaY; 
                 }}
             >
-                <TravelCard2 compact={false} cardStyle={'light'} travel={sampleTravel} onclick={() => setSelectedTravel(sampleTravel)}   />
-                <TravelCard2 compact={false} cardStyle={'light'} travel={{ id: 2, destino: "Facultad de Informática", fecha: "2024-05-10 09:00", rol: "Pasajero", estado: "Terminado", rating: 5 }} onclick={() => setSelectedTravel({ id: 2, destino: "Facultad de Informática", fecha: "2024-05-10 09:00", rol: "Pasajero", estado: "Terminado", rating: 5 })} />
-                <TravelCard2 compact={false} cardStyle={'light'} travel={{ id: 3, destino: "Centro Comercial", fecha: "2024-04-20 18:00", rol: "Conductor", estado: "Cancelado", rating: 0 }} onclick={() => setSelectedTravel({ id: 3, destino: "Centro Comercial", fecha: "2024-04-20 18:00", rol: "Conductor", estado: "Cancelado", rating: 0 })} />
+                {ListTravels.map((travel) => (
+                    <TravelCard2
+                        key={travel._id}
+                        compact={false}
+                        cardStyle={'light'}
+                        travel={travel}
+                        onclick={() => setSelectedTravel(travel)}
+                        onDelete={(id) => {
+                            setListTravels(prev => prev.map(t => 
+                                t._id === id 
+                                    ? { ...t, estado: "cancelado" }  // cambia solo el estado
+                                    : t  // los demás quedan igual
+                            ));
+                        }}
+                    />
+                ))}
             </ul>
 
             {selectedTravel && <TravelDetails selectedTravel={selectedTravel} setSelectedTravel={setSelectedTravel} />}

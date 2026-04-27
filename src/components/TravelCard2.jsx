@@ -1,5 +1,5 @@
 import StarRating from "./starRating";
-
+import { useState } from "react";
 /*
  Props:
  - travel   : objeto con { destino, rol, costo, fecha, estado, rating }
@@ -9,8 +9,8 @@ import StarRating from "./starRating";
  */
 import "../assets/travelCard2.css";
 
-function TravelCard2({ compact, travel, onclick, cardStyle }) {
-  const isDriver    = travel.rol === "Conductor";
+function TravelCard2({onDelete, compact, travel, onclick, cardStyle }) {
+  const isDriver    = travel.id_conductor === JSON.parse(localStorage.getItem("user"))._id;
   const isNext      = travel.estado === "Próximo";
   const isDone      = travel.estado === "Terminado";
   const canDelete   = isDriver && isNext;
@@ -29,9 +29,34 @@ function TravelCard2({ compact, travel, onclick, cardStyle }) {
     ? "tc-status-pill tc-status-done"
     : "tc-status-pill";
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.stopPropagation();
+    if (!window.confirm("¿Estás seguro de que deseas eliminar este viaje? Esta acción no se puede deshacer.")) {
+      return;
+    }
+
+      // Aquí iría la lógica para eliminar el viaje, por ejemplo, una llamada a la API
+    try {
+        const response = await fetch(`http://localhost:3000/deleteTravel/${travel._id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('token')}`
+          }});
+        if (!response.ok) {
+          throw new Error('Error al eliminar el viaje');
+        }
+        // Simulación de eliminación local (en una aplicación real, deberías actualizar el estado global o volver a cargar los datos)
+        onDelete(travel._id);
+      
+      } catch (error) {
+        console.error('Error al eliminar el viaje:', error);
+    }
   };
+
+  const fecha = new Date(travel.fechaHora);
+  const fechaStr = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()} ${fecha.getHours()}:${fecha.getMinutes().toString().padStart(2, '0')}`;
+
 
   if (compact) {
     return (
@@ -42,18 +67,18 @@ function TravelCard2({ compact, travel, onclick, cardStyle }) {
             <CarIcon color={carColor} />
           </div>
           <div className="tc-info">
-            <p className="tc-dest">{travel.destino}</p>
-            <span className={roleBadgeClass}>{travel.rol}</span>
+            <p className="tc-dest">{travel.destino.address}</p>
+            <span className={roleBadgeClass}>{isDriver ? "Conductor" : "Pasajero"}</span>
           </div>
         </div>
         <div className="tc-meta">
           <span className="tc-meta-row">
             <ClockIcon />
-            {travel.fecha}
+            {fechaStr}
           </span>
         </div>
         <div className="tc-footer">
-          <StarRating value={travel.rating} readOnly={!isDone} />
+          <StarRating value={travel.rating ? travel.rating : 0} readOnly={!isDone} />
           <span className={statusClass}>{travel.estado}</span>
         </div>
       </li>
@@ -69,21 +94,21 @@ function TravelCard2({ compact, travel, onclick, cardStyle }) {
           <CarIcon color={carColor} />
         </div>
         <div className="tc-info">
-          <p className="tc-dest">{travel.destino}</p>
-          <span className={roleBadgeClass}>{travel.rol}</span>
+          <p className="tc-dest">{travel.destino.address}</p>
+          <span className={roleBadgeClass}>{isDriver ? "Conductor" : "Pasajero"}</span>
         </div>
       </div>
 
       <div className="tc-meta">
         <span className="tc-meta-row">
           <ClockIcon />
-          {travel.fecha}
+          {fechaStr}
         </span>
       </div>
 
       <div className="tc-footer">
         <div className="tc-footer-left">
-          <StarRating value={travel.rating} readOnly={!isDone} />
+          <StarRating value={travel.rating ? travel.rating : 0} readOnly={!isDone} />
           <span className={statusClass}>{travel.estado}</span>
         </div>
 
@@ -92,14 +117,16 @@ function TravelCard2({ compact, travel, onclick, cardStyle }) {
             <span className="tc-cost">${travel.costo} MXN</span>
           )}
           {canDelete && (
-            <><button
-              className="tc-delete-btn"
-              title="Eliminar viaje"
-              onClick={handleDelete}
-            >
-              <TrashIcon />
-              <p>Borrar</p>
-            </button></>
+            <>
+              <button
+                className="tc-delete-btn"
+                title="Eliminar viaje"
+                onClick={handleDelete}
+              >
+                <TrashIcon />
+                <p>Borrar</p>
+              </button>
+            </>
           )}
         </div>
       </div>

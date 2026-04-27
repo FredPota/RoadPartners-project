@@ -15,6 +15,8 @@ function ProfilePage() {
     const [activeSection, setActiveSection] = useState('personalInfo');
     const [isEditing, setIsEditing] = useState('');
     const [cardAction, setCardAction] = useState('');
+    const [userCars, setUserCars] = useState([]);
+    const [userTravels, setUserTravels] = useState([]);
 
     const navigate = useNavigate();
 
@@ -31,6 +33,68 @@ function ProfilePage() {
         navigate("/login");
     };
 
+    const getUserCars = async (e) => {
+
+        e.preventDefault();
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const apiUrl = `http://localhost:3000/getCarsByDriver/${user._id}`;
+
+        try {
+            console.log('Obteniendo autos del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+            console.log('Carros del usuario:', data);
+            setActiveSection('carProfile');
+            setUserCars(data);
+            return data;
+
+        } catch (error) {
+            console.error('Error al obtener los autos del usuario:', error);
+            alert('No se pudo obtener la información de tus autos. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+    const getUserTravels = async (e) => {
+        e.preventDefault();
+
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const apiUrl = `http://localhost:3000/getTravelsByDriver/${user._id}`;
+            console.log('Obteniendo viajes del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Error al obtener los viajes del usuario');
+            }
+            console.log('Viajes del usuario:', data);
+            setActiveSection('travelHistory');
+            setUserTravels(data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener los viajes del usuario:', error);
+            alert('No se pudo obtener la información de tus viajes. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+
     const goToHome = () => {
         navigate('/');
     };
@@ -41,8 +105,8 @@ function ProfilePage() {
             <div className="profile-page">
                 <nav className="nav-profile">
                     <button className="menu-profile-btn" onClick={() => setActiveSection('personalInfo')}>Info</button>
-                    <button className="menu-profile-btn" onClick={() => setActiveSection('carProfile')}>Car</button>
-                    <button className="menu-profile-btn" onClick={() => setActiveSection('travelHistory')}>Hist</button>
+                    <button className="menu-profile-btn" onClick={getUserCars}>Car</button>
+                    <button className="menu-profile-btn" onClick={getUserTravels}>Hist</button>
                 </nav>
 
                 <div id="profile-container">
@@ -117,8 +181,8 @@ function ProfilePage() {
                         </div>
                     )}
 
-                    {activeSection === 'travelHistory' && <TravelHistory />}
-                    {activeSection === 'carProfile' && <CarSection user={user} /> }
+                    {activeSection === 'travelHistory' && <TravelHistory travelList={userTravels} />}
+                    {activeSection === 'carProfile' && <CarSection user={user} cars={userCars} /> }
 
                 </div>
             </div>

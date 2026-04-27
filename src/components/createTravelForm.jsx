@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { use, useState } from 'react';
 import '../assets/createTravel.css';
  
 /*
@@ -6,22 +6,97 @@ import '../assets/createTravel.css';
   - onexit      : función para cerrar el modal
   - UserCarList : array de objetos car { id, make, model, color, capacity, plates }
  */
-function CreateTravelForm({ onexit, UserCarList = [] }) {
+function CreateTravelForm({ onexit, UserCarList }) {
     const [carSelected, setCarSelected] = useState(null);
     
+
+    //campos de form
+    const [origin, setOrigin] = useState('');
+    const [destiny, setDestiny] = useState('');
+    const [datetime, setDatetime] = useState('');
+    const [passengers, setPassengers] = useState(1);
+    const [vehicle, setVehicle] = useState(null);
+    const [costPerPerson, setCostPerPerson] = useState(-1);
     const [cost, setCost] = useState(0);
 
-    const handleCarChange = (e) => {
-        const car = UserCarList.find((c) => c.id === parseInt(e.target.value));
+
+
+
+    const handleCarChange = async (e) => {
+        const car = UserCarList.find((c) => c._id === (e.target.value));
         setCarSelected(car ?? null);
-        setCost(car.capacity*5);
+        setCost(car?.capacidad * 5 ?? 0);
+
+        console.log('Carro seleccionado:', carSelected);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+      try {
+
+        const response = await fetch('http://localhost:3000/createTravel', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify({
+            origen: {
+              address: origin,
+              location: {
+                type: "Point",
+                coordinates: [-50, 20] // Aquí deberías incluir la lógica para obtener las coordenadas reales del origen
+              }
+            },
+            destino: {
+              address: destiny,
+              location: {
+                type: "Point",
+                coordinates: [-50, 20] // Aquí deberías incluir la lógica para obtener las coordenadas reales del destino
+              }
+            },
+            fechaHora: datetime,
+            asientos_disponibles: passengers,
+            precio: cost,
+            estado: 'activo',
+            id_conductor: JSON.parse(localStorage.getItem('user'))._id,
+            id_vehiculo: carSelected._id
+          })
+          
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('Viaje creado exitosamente');
+          onexit(false);
+        } else {
+          alert('Error al crear el viaje: ' + data.message);
+          console.log('Error details:', {
+            origen: origin,
+            destino: destiny,
+            fechaHora: datetime,
+            asientos_disponibles: passengers,
+            precio: cost,
+            estado: 'activo',
+            id_conductor: JSON.parse(localStorage.getItem('user'))._id,
+            id_vehiculo: carSelected._id
+          });
+        }
+
+      } catch (error) {
+        console.error('Error al crear el viaje:', error);
+        alert('No se pudo crear el viaje. Por favor, intenta nuevamente más tarde.');
+      }
+
     };
 
     
     
     return (
         <div className="modal-overlay">
-            <div className="ctf-modal">
+            <form method='post' onSubmit={handleSubmit} className="ctf-modal">
         
                 {/* Botón cerrar */}
                 <button className="ctf-close-btn" onClick={() => onexit(false)}>
@@ -50,6 +125,8 @@ function CreateTravelForm({ onexit, UserCarList = [] }) {
                         placeholder="Punto de salida"
                         name="start-origin"
                         id="start-origin"
+
+                        onChange={(e) => setOrigin(e.target.value)}
                     />
                     </div>
                     <div className="ctf-route-sep" />
@@ -61,6 +138,8 @@ function CreateTravelForm({ onexit, UserCarList = [] }) {
                         placeholder="Destino"
                         name="start-destiny"
                         id="start-destiny"
+
+                        onChange={(e) => setDestiny(e.target.value)}
                     />
                     </div>
                 </div>
@@ -78,6 +157,7 @@ function CreateTravelForm({ onexit, UserCarList = [] }) {
                     type="datetime-local"
                     name="start-datetime"
                     id="start-datetime"
+                    onChange={(e) => setDatetime(e.target.value)}
                     />
                 </div>
                 </div>
@@ -96,8 +176,8 @@ function CreateTravelForm({ onexit, UserCarList = [] }) {
                 >
                     <option value="" disabled>Selecciona tu vehículo</option>
                     {UserCarList.map((car) => (
-                        <option key={car.id} value={car.id}>
-                            {car.make} {car.model} — {car.plates}
+                        <option key={car._id} value={car._id}>
+                            {car.marca} {car.modelo} — {car.placa}
                         </option>
                     ))}
                 </select>
@@ -107,7 +187,7 @@ function CreateTravelForm({ onexit, UserCarList = [] }) {
                     <div className="ctf-car-preview">
                     <CarIconGreen />
                     <span>
-                        {carSelected.make} {carSelected.model} · {carSelected.color} · {carSelected.capacity} personas
+                        {carSelected.marca} {carSelected.modelo} · {carSelected.color} · {carSelected.capacidad} personas
                     </span>
                     </div>
                 )}
@@ -127,10 +207,9 @@ function CreateTravelForm({ onexit, UserCarList = [] }) {
                         name="passengers"
                         id="passengers"
                         min="1"
-                        max={carSelected?.capacity ?? 8}
+                        max="8"
                         placeholder="1"
-                        value={carSelected?.capacity ?? ''}
-                        onChange={() => {}}
+                        onChange={(e) => setPassengers(e.target.value)}
                     />
                     </div>
                     <div className="ctf-field">
@@ -157,13 +236,13 @@ function CreateTravelForm({ onexit, UserCarList = [] }) {
                 <hr className="ctf-divider" />
         
                 {/* Submit */}
-                <button className="ctf-submit-btn" onClick={() => onexit(false)}>
-                <PlusIcon />
-                Publicar Viaje
+                <button className="ctf-submit-btn" type='submit'>
+                  <PlusIcon />
+                  Publicar Viaje
                 </button>
         
-            </div>
-            </div>
+            </form>
+          </div>
     );
 }
  

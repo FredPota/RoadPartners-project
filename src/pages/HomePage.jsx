@@ -34,15 +34,49 @@ const lastPartners = [
     { name: "Juan Pérez", date: "12 de marzo", dest: "Facultad de Medicina", photoSrc: null, verified: false }
 ];
 
+
 function HomePage() {
     
     const [isSearching, setIsSearching] = useState(false);
     const [creatingTravel, setCreatingTravel] = useState(false);
+    const [UserCars, setUserCars] = useState([]);
 
     const navigate = useNavigate();
     const goToLogin = () => {
         navigate('/login');
     }
+
+
+    const handleCreateTravel = async () => {
+        const user = JSON.parse(localStorage.getItem('user')); // Reemplaza con la forma en que obtienes el ID del usuario
+        const apiUrl = `http://localhost:3000/getCarsByDriver/${user._id}`; // Reemplaza con la URL de tu API y el ID del usuario
+
+        try {
+            console.log('Obteniendo autos del usuario con ID:', user._id);
+
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}` // Si tu API requiere autenticación
+                }
+            });
+
+            const data = await response.json();
+
+            console.log('Carros del usuario:', data);
+
+            setUserCars(data);
+            setCreatingTravel(true);
+            
+        } catch (error) {
+            console.error('Error al obtener los autos del usuario:', error);
+            alert('No se pudo obtener la información de tus autos. Por favor, intenta nuevamente más tarde.');
+        }
+
+
+    }
+
 
     return (
         <div className="home-container">
@@ -69,10 +103,10 @@ function HomePage() {
                         {isSearching===true && <AvailableTravels setissearching={setIsSearching} />}
                         
 
-                        <div id="publish-btn" onClick={() => setCreatingTravel(true)}>Crear Viaje</div>
+                        <div id="publish-btn" onClick={handleCreateTravel}>Crear Viaje</div>
                     </div>
 
-                    {creatingTravel==true && <CreateTravelForm onexit={setCreatingTravel} UserCarList={user.MOCK_CARS} />}
+                    {creatingTravel==true && <CreateTravelForm onexit={setCreatingTravel} UserCarList={UserCars} />}
                 </div>
                 {/* <div id="search-btn">Buscar Viaje</div> */}
 

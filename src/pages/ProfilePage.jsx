@@ -190,7 +190,7 @@ function ProfilePage() {
                     )}
 
                     {activeSection === 'travelHistory' && <TravelHistory />}
-                    {activeSection === 'carProfile' && <CarSection /> }
+                    {activeSection === 'carProfile' && <CarSection user={user} /> }
 
                 </div>
             </div>

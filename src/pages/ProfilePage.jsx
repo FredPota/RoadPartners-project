@@ -15,6 +15,8 @@ function ProfilePage() {
     const [activeSection, setActiveSection] = useState('personalInfo');
     const [isEditing, setIsEditing] = useState('');
     const [cardAction, setCardAction] = useState('');
+    const [userCars, setUserCars] = useState([]);
+    const [userTravels, setUserTravels] = useState([]);
 
     const navigate = useNavigate();
 
@@ -72,14 +74,236 @@ function ProfilePage() {
         }
     };
 
+    const getUserCars = async (e) => {
+
+        e.preventDefault();
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const apiUrl = `http://localhost:3000/getCarsByDriver/${user._id}`;
+
+        try {
+            console.log('Obteniendo autos del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+            console.log('Carros del usuario:', data);
+            setActiveSection('carProfile');
+            setUserCars(data);
+            return data;
+
+        } catch (error) {
+            console.error('Error al obtener los autos del usuario:', error);
+            alert('No se pudo obtener la información de tus autos. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+    const getUserTravels = async (e) => {
+        e.preventDefault();
+
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const apiUrl = `http://localhost:3000/getTravelsByDriver/${user._id}`;
+            console.log('Obteniendo viajes del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Error al obtener los viajes del usuario');
+            }
+            console.log('Viajes del usuario:', data);
+            setActiveSection('travelHistory');
+            setUserTravels(data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener los viajes del usuario:', error);
+            alert('No se pudo obtener la información de tus viajes. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+
+    const getUserCars = async (e) => {
+
+        e.preventDefault();
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const apiUrl = `http://localhost:3000/getCarsByDriver/${user._id}`;
+
+        try {
+            console.log('Obteniendo autos del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+            console.log('Carros del usuario:', data);
+            setActiveSection('carProfile');
+            setUserCars(data);
+            return data;
+
+        } catch (error) {
+            console.error('Error al obtener los autos del usuario:', error);
+            alert('No se pudo obtener la información de tus autos. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+    const getUserTravels = async (e) => {
+        e.preventDefault();
+
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const apiUrl = `http://localhost:3000/getTravelsByDriver/${user._id}`;
+            console.log('Obteniendo viajes del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Error al obtener los viajes del usuario');
+            }
+            console.log('Viajes del usuario:', data);
+            setActiveSection('travelHistory');
+            setUserTravels(data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener los viajes del usuario:', error);
+            alert('No se pudo obtener la información de tus viajes. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+
+    // ✏️ ACTUALIZAR USUARIO
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+
+        try {
+            const token = localStorage.getItem("token");
+
+            const res = await fetch("http://localhost:3000/usuario", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                },
+                body: JSON.stringify({
+                    correo,
+                    telefono
+                })
+            });
+
+            const data = await res.json();
+
+            console.log("✅ ACTUALIZADO:", data);
+
+            // 🔥 actualizar estado y localStorage
+            setUser(data.usuario);
+            localStorage.setItem("user", JSON.stringify(data.usuario));
+
+            alert("Datos actualizados");
+
+            setIsEditing('');
+
+        } catch (error) {
+            console.error("❌ ERROR:", error);
+        }
+    };
+
+    const getUserCars = async (e) => {
+
+        e.preventDefault();
+
+        const user = JSON.parse(localStorage.getItem('user'));
+        const apiUrl = `http://localhost:3000/getCarsByDriver/${user._id}`;
+
+        try {
+            console.log('Obteniendo autos del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+            console.log('Carros del usuario:', data);
+            setActiveSection('carProfile');
+            setUserCars(data);
+            return data;
+
+        } catch (error) {
+            console.error('Error al obtener los autos del usuario:', error);
+            alert('No se pudo obtener la información de tus autos. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+    const getUserTravels = async (e) => {
+        e.preventDefault();
+
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const apiUrl = `http://localhost:3000/getTravelsByDriver/${user._id}`;
+            console.log('Obteniendo viajes del usuario con ID:', user._id);
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Error al obtener los viajes del usuario');
+            }
+            console.log('Viajes del usuario:', data);
+            setActiveSection('travelHistory');
+            setUserTravels(data);
+            return data;
+        } catch (error) {
+            console.error('Error al obtener los viajes del usuario:', error);
+            alert('No se pudo obtener la información de tus viajes. Por favor, intenta nuevamente más tarde.');
+            return [];
+        }
+    };
+
+
     return (
         <div>
             <Header />
             <div className="profile-page">
                 <nav className="nav-profile">
                     <button className="menu-profile-btn" onClick={() => setActiveSection('personalInfo')}>Info</button>
-                    <button className="menu-profile-btn" onClick={() => setActiveSection('carProfile')}>Car</button>
-                    <button className="menu-profile-btn" onClick={() => setActiveSection('travelHistory')}>Hist</button>
+                    <button className="menu-profile-btn" onClick={getUserCars}>Car</button>
+                    <button className="menu-profile-btn" onClick={getUserTravels}>Hist</button>
                 </nav>
 
                 <div id="profile-container">
@@ -189,8 +413,8 @@ function ProfilePage() {
                         </div>
                     )}
 
-                    {activeSection === 'travelHistory' && <TravelHistory />}
-                    {activeSection === 'carProfile' && <CarSection user={user} /> }
+                    {activeSection === 'travelHistory' && <TravelHistory travelList={userTravels} />}
+                    {activeSection === 'carProfile' && <CarSection user={user} cars={userCars} /> }
 
                 </div>
             </div>

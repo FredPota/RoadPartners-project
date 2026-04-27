@@ -12,12 +12,48 @@ const ANIMATION = {
   transition: { duration: 0.2, ease: 'easeOut' },
 };
 
-function CarSection({ user, cars = MOCK_CARS }) {
+function CarSection({ user, cars }) {
   const [showCarForm, setShowCarForm]           = useState(false);
   const [showInsuranceForm, setShowInsuranceForm] = useState(false);
   const [selectedCar, setSelectedCar]           = useState(cars[0] ?? null);
+  const [carList, setCarList]                   = useState(cars);
 
   const isInsured = selectedCar?.insured ?? false;
+
+  const deleteCar = async (e) => {
+    e.preventDefault();
+
+    const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar este vehículo? Esta acción no se puede deshacer.");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:3000/deleteCar/${selectedCar._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.ok) {
+        alert('Vehículo eliminado correctamente');
+        
+        setCarList(prev => prev.filter(car => car._id !== selectedCar._id));
+
+        setSelectedCar(null);
+
+      } else {
+        const errorData = await response.json();
+        console.error('Error al eliminar el vehículo:', errorData);
+        alert('No se pudo eliminar el vehículo. Por favor, intenta nuevamente más tarde.');
+      }
+
+    } catch (error) {
+      console.error('Error al eliminar el vehículo:', error);
+      alert('No se pudo eliminar el vehículo. Por favor, intenta nuevamente más tarde.');
+    }
+
+  };
 
   return (
     <div className="cs-wrap">
@@ -27,10 +63,10 @@ function CarSection({ user, cars = MOCK_CARS }) {
         <h3 className="cs-list-title">Tus vehículos</h3>
 
         <ul className="cs-car-list">
-          {cars.map((car) => (
-            <li key={car.id}>
+          {carList.map((car) => (
+            <li key={car._id}>
               <button
-                className={`cs-car-item group ${selectedCar?.id === car.id ? 'cs-car-item--active' : ''}`}
+                className={`cs-car-item group ${selectedCar?._id === car._id ? 'cs-car-item--active' : ''}`}
                 onClick={() => setSelectedCar(car)}
               >
                 {/* Thumb */}
@@ -40,12 +76,12 @@ function CarSection({ user, cars = MOCK_CARS }) {
 
                 {/* Info */}
                 <div className="cs-car-item-info">
-                  <p className="cs-car-item-name">{car.make} {car.model}</p>
-                  <p className="cs-car-item-plate">{car.plates}</p>
+                  <p className="cs-car-item-name">{car.marca} {car.modelo}</p>
+                  <p className="cs-car-item-plate">{car.placa}</p>
                 </div>
 
                 {/* Dot de estado */}
-                <span className={`cs-status-dot ${car.insured ? 'cs-dot--insured' : 'cs-dot--uninsured'}`} />
+                {/* <span className={`cs-status-dot ${car.insured ? 'cs-dot--insured' : 'cs-dot--uninsured'}`} /> */}
               </button>
             </li>
           ))}
@@ -61,20 +97,20 @@ function CarSection({ user, cars = MOCK_CARS }) {
       <div className="cs-detail-panel">
         <AnimatePresence mode="wait">
           {selectedCar ? (
-            <motion.div key={selectedCar.id} {...ANIMATION}>
+            <motion.div key={selectedCar._id} {...ANIMATION}>
 
               {/* Header */}
               <div className="cs-detail-header">
                 <div>
                   <p className="cs-detail-title">
-                    {selectedCar.make} {selectedCar.model} {selectedCar.year}
+                    {selectedCar.marca} {selectedCar.modelo} {selectedCar.año}
                   </p>
                   <p className="cs-detail-subtitle">Registrado en tu perfil</p>
                 </div>
-                <span className={`cs-ins-badge ${isInsured ? 'cs-ins--insured' : 'cs-ins--uninsured'}`}>
+                {/* <span className={`cs-ins-badge ${isInsured ? 'cs-ins--insured' : 'cs-ins--uninsured'}`}>
                   <span className="cs-ins-dot" />
                   {isInsured ? 'Asegurado' : 'Sin seguro'}
-                </span>
+                </span> */}
               </div>
 
               <hr className="cs-divider" />
@@ -85,7 +121,7 @@ function CarSection({ user, cars = MOCK_CARS }) {
                   <div className="cs-spec-icon"><CapacityIcon /></div>
                   <div>
                     <p className="cs-spec-label">Capacidad</p>
-                    <p className="cs-spec-value">{selectedCar.capacity ?? 5} personas</p>
+                    <p className="cs-spec-value">{selectedCar.capacidad ?? 5} personas</p>
                   </div>
                 </div>
                 <div className="cs-spec">
@@ -99,20 +135,20 @@ function CarSection({ user, cars = MOCK_CARS }) {
                   <div className="cs-spec-icon"><PlateIcon /></div>
                   <div>
                     <p className="cs-spec-label">Placas</p>
-                    <p className="cs-spec-value">{selectedCar.plates}</p>
+                    <p className="cs-spec-value">{selectedCar.placa}</p>
                   </div>
                 </div>
                 <div className="cs-spec">
                   <div className="cs-spec-icon"><YearIcon /></div>
                   <div>
                     <p className="cs-spec-label">Año</p>
-                    <p className="cs-spec-value">{selectedCar.year}</p>
+                    <p className="cs-spec-value">{selectedCar.año}</p>
                   </div>
                 </div>
               </div>
 
               {/* Advertencia si no tiene seguro */}
-              {!isInsured && (
+              {/* {!isInsured && (
                 <div className="cs-warning">
                   <WarningIcon />
                   <p className="cs-warning-text">
@@ -120,18 +156,20 @@ function CarSection({ user, cars = MOCK_CARS }) {
                     tu propio riesgo y puede afectar tu reputación en la plataforma.
                   </p>
                 </div>
-              )}
+              )} */}
 
               {/* Acciones */}
               <div className="cs-actions">
-                <button className="cs-btn-primary" onClick={() => setShowInsuranceForm(true)}>
+                {/* <button className="cs-btn-primary" onClick={() => setShowInsuranceForm(true)}>
                   <ShieldIcon />
                   {isInsured ? 'Gestionar seguro' : 'Asegurar vehículo'}
-                </button>
-                <button className="cs-btn-danger">
-                  <TrashIcon />
-                  Eliminar
-                </button>
+                </button> */}
+                <form method='patch' onSubmit={deleteCar} >
+                  <button className="cs-btn-danger">
+                    <TrashIcon />
+                    Eliminar
+                  </button>
+                </form>
               </div>
 
             </motion.div>

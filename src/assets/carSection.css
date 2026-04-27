@@ -139,7 +139,7 @@
 
 .cs-spec {
   @apply flex items-center gap-3
-    bg-gray-50
+    bg-gray-900/3
     rounded-xl p-3;
 }
 
@@ -172,7 +172,7 @@
 
 /*  Botones de acción  */
 .cs-actions {
-  @apply flex gap-3;
+  @apply flex justify-end gap-3;
 }
 
 .cs-btn-primary {

@@ -10,7 +10,7 @@ import ProfileCards2 from '../components/ProfileCards2.jsx';
 import CreateTravelForm from '../components/createTravelForm.jsx';
 import PlacesInput from '../components/placesInput.jsx';
 import Map from '../components/map.jsx';
-import { useState } from 'react';
+import { use, useState, useEffect } from 'react';
 import { LocationIcon } from '../components/createTravelForm.jsx';
 import { u } from 'framer-motion/client';
 import { useJsApiLoader } from "@react-google-maps/api";
@@ -49,6 +49,9 @@ function HomePage() {
     const [searchDestiny, setSearchDestiny] = useState(null);
     const [searchDate, setSearchDate] = useState('');
     const [availableTravels, setAvailableTravels] = useState([]);
+
+    const [nextTravels, setNextTravels] = useState([]);
+    const [recentTravels, setRecentTravels] = useState([]);
 
     const [selectedTravel, setSelectedTravel] = useState(null);
 
@@ -155,6 +158,7 @@ function HomePage() {
 
             if (response.ok) {
                 setIsSearching(false);
+                fetchNextTravels(); // Actualiza la lista de próximos viajes para reflejar el nuevo viaje unido
                 alert('Te has unido al viaje exitosamente');
                 setSelectedTravel(null);
             } else {
@@ -166,6 +170,72 @@ function HomePage() {
             alert('No se pudo realizar la operación');
         }
     };
+
+    //obtener viajes del usuario proximos
+
+    const id_usuario = JSON.parse(localStorage.getItem('user'))._id;
+
+    const fetchNextTravels = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/travels/ownIn/${id_usuario}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    estado: "Próximo"
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setNextTravels(data);
+            } else {
+                setNextTravels([]);
+            }
+        } catch (error) {
+            console.error('Error al obtener los próximos viajes:', error);
+            setNextTravels([]);
+        }
+    };
+
+    const fetchRecentTravels = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/travels/ownIn/${id_usuario}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    estado: "completado"
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setRecentTravels(data);
+            } else {
+                setRecentTravels([]);
+            }
+
+        } catch (error) {
+            console.error('Error al obtener los viajes recientes:', error);
+            setRecentTravels([]);
+        }
+    };
+    
+    useEffect(() => {
+        fetchNextTravels();
+        fetchRecentTravels();
+
+    }, []);
+
+    console.log('Viajes próximos:', nextTravels);
+    console.log('Viajes recientes:', recentTravels);
 
 
     return (
@@ -218,16 +288,22 @@ function HomePage() {
                 <div id="" className="w-[150%] mt-10">
                     <h3 className="text-xl mb-4 ">Proximos Viajes</h3>
                     <ul className="list-container bg-DarkBlue/20">
-                        <TravelCard2 travel={{ id: 1, destino: "Facultad de Ciencias Físico Matemáticas", rol: "Conductor", pasajeros: 2, fecha: "13 de marzo 10:00 am", hora: "10:00 am", costo: 40, distancia: 15, estado: "Próximo", rating: 0 }} />
-                        <TravelCard2 travel={{ id: 2, destino: "Facultad de Informática", rol: "Pasajero", pasajeros: 3, fecha: "12 de Marzo 8:00 am", costo: 200, distancia: 17, estado: "Próximo", rating: 0 }} />
-                        <TravelCard2 travel={{ id: 3, destino: "Facultad de Medicina", rol: "Conductor", pasajeros: 1, fecha: "14 de marzo 9:00 am", hora: "9:00 am", costo: 50, distancia: 20, estado: "Próximo", rating: 0 }} />
+                        {nextTravels.map((travel) => (
+                            <TravelCard2 key={travel.id} travel={travel}
+                            onDelete={(id) => {
+                                //Remover al elemento de la lista
+                                setNextTravels(prev => prev.filter(t => t._id !== id));
+                            }}
+                            />
+                        ))}
                     </ul>
                 </div>
                 <div id="" className="w-[150%] mt-20">
                     <h3 className="text-xl mb-4 ">Viajes Recientes</h3>
                     <ul className="list-container bg-DarkBlue/20">
-                        <TravelCard2 travel={{ id: 1, destino: "Facultad de Ciencias Físico Matemáticas", rol: "Conductor", pasajeros: 2, fecha: "2025-10-01", hora: "10:00 am", costo: 40, distancia: 15, estado: "Terminado", rating: 5 }} />
-                        <TravelCard2 travel={{ id: 2, destino: "Facultad de Informática", rol: "Pasajero", pasajeros: 3, fecha: "2025-10-02", costo: 200, distancia: 17, estado: "Terminado", rating: 4 }} />
+                        {recentTravels.map((travel) => (
+                            <TravelCard2 key={travel.id} travel={travel} />
+                        ))}
                     </ul>
                 </div>
                 <div className="recent-profiles-container w-[150%] mt-20">

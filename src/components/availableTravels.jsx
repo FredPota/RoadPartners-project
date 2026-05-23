@@ -1,6 +1,6 @@
 import AvailableTravelCard from './availableTravelCard.jsx'
 
-function AvailableTravels({setissearching}) {
+function AvailableTravels({handlerSelectedTravel, travels, setissearching}) {
 
     return (
         <div className="absolute top-0 flex flex-col w-full h-full">
@@ -19,11 +19,13 @@ function AvailableTravels({setissearching}) {
             >
                 <h2 className="title-form h-auto pr-5">Viajes Disponibles</h2>
                 <div className='list-container-vertical bg-white rounded-md h-80 p-1'>
-                    <AvailableTravelCard />
-                    <AvailableTravelCard />
-                    <AvailableTravelCard />
-                    <AvailableTravelCard />
-                    <AvailableTravelCard />
+                    {travels.length > 0 ? (
+                        travels.map((travel) => (
+                            <AvailableTravelCard key={travel.id} travel={travel} onclick={handlerSelectedTravel} />
+                        ))) : (
+                            <p className="text-center mt-10">No se encontraron viajes disponibles para la fecha seleccionada.</p>
+                        )}
+
                 </div>
                 <button className="btnSubmit-form self-center mt-5" onClick={() => setissearching(false)}>Solicitar Viaje</button>
             </div>

@@ -8,9 +8,12 @@ import AvailableTravels from '../components/availableTravels.jsx';
 import ProfileCards from '../components/ProfileCards.jsx';
 import ProfileCards2 from '../components/ProfileCards2.jsx';
 import CreateTravelForm from '../components/createTravelForm.jsx';
+import PlacesInput from '../components/placesInput.jsx';
 import Map from '../components/map.jsx';
 import { useState } from 'react';
 import { LocationIcon } from '../components/createTravelForm.jsx';
+import { u } from 'framer-motion/client';
+import { useJsApiLoader } from "@react-google-maps/api";
 
 // página de inicio - hasta ahora solo es para probar el routing
 // Aqui se hara la busqueda de viajes, se mostraran los viajes disponibles, y se podran filtrar por diferentes criterios (origen, destino, fecha, etc)
@@ -41,10 +44,23 @@ function HomePage() {
     const [creatingTravel, setCreatingTravel] = useState(false);
     const [UserCars, setUserCars] = useState([]);
 
+    // ← Agrega estos tres estados
+    const [searchOrigin, setSearchOrigin] = useState(null);
+    const [searchDestiny, setSearchDestiny] = useState(null);
+    const [searchDate, setSearchDate] = useState('');
+    const [availableTravels, setAvailableTravels] = useState([]);
+
+    const [selectedTravel, setSelectedTravel] = useState(null);
+
     const navigate = useNavigate();
     const goToLogin = () => {
         navigate('/login');
     }
+
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_KEY,
+        libraries: ['places']
+    });
 
 
     const handleCreateTravel = async () => {
@@ -77,6 +93,44 @@ function HomePage() {
 
     }
 
+    const handleSearch = async () => {
+        if (!searchOrigin?.location || !searchDestiny?.location) {
+            alert('Por favor selecciona el origen y destino de las sugerencias de Google Maps');
+            return;
+        }
+        if (!searchDate) {
+            alert('Por favor selecciona una fecha');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/travels/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    origen: searchOrigin,
+                    destino: searchDestiny,
+                    fechaSalida: searchDate
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setAvailableTravels(data);
+                setIsSearching(true);
+            } else {
+                alert(data.message || 'No se encontraron viajes');
+            }
+        } catch (error) {
+            console.error('Error al buscar viajes:', error);
+            alert('No se pudo realizar la búsqueda');
+        }
+    };
+
 
     return (
         <div className="home-container">
@@ -91,16 +145,31 @@ function HomePage() {
                                 <LocationIcon />
                                 <p className=' text-center text-gray-600'>Puntos de Ruta</p>
                             </div>
-                            <input placeholder='Punto de salida: ' type="text" name="start-origin" id="start-origin" className="input-form" />
-                            <input placeholder='Destino: ' type="text" name="start-destiny" id="start-destiny" className="input-form" />
-                            
-                            <button type='button' onClick={() => setIsSearching(true)} className='btnSubmit-form self-center'>Buscar Viaje</button>
+
+                            {isLoaded ? (
+                                <>
+                                    <PlacesInput
+                                        label="Origen"
+                                        onPlaceSelected={(data) => setSearchOrigin(data)}
+                                    />
+                                    <PlacesInput
+                                        label="Destino"
+                                        onPlaceSelected={(data) => setSearchDestiny(data)}
+                                    />
+                                </>
+                            ) : (
+                                <p>Cargando...</p>
+                            )}
+
+                            <input type="date" value={searchDate} onChange={(e) => setSearchDate(e.target.value)} className='input-form' />
+
+                            <button type='button' onClick={handleSearch} className='btnSubmit-form self-center'>Buscar Viaje</button>
                         </form>
 
                     </div>
                     <div className='map-home'>
-                        <Map />
-                        {isSearching===true && <AvailableTravels setissearching={setIsSearching} />}
+                        <Map isLoaded={isLoaded} selectedTravel={selectedTravel} searchOrigin={searchOrigin} />
+                        {isSearching===true && <AvailableTravels handlerSelectedTravel={setSelectedTravel} travels={availableTravels} setissearching={setIsSearching} />}
                         
 
                         <div id="publish-btn" onClick={handleCreateTravel}>Crear Viaje</div>

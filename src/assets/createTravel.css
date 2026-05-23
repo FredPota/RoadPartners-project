@@ -190,4 +190,5 @@
 .pac-container {
   z-index: 9999 !important;
   pointer-events: all !important;
+  width: 500px !important;
 }

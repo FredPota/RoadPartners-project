@@ -1,6 +1,9 @@
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
+
+
 function Map() {
+    
 
     const containerStyle = {
         width: '100%',
@@ -8,7 +11,8 @@ function Map() {
     };
 
     const {isLoaded} = useJsApiLoader({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_KEY
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_KEY,
+        libraries: ['places']
     });
 
     const center = { //Monterrey

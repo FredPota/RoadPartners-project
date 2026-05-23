@@ -1,5 +1,6 @@
 import { use, useState } from 'react';
 import '../assets/createTravel.css';
+import PlacesInput from './PlacesInput.jsx';
  
 /*
  Props:
@@ -11,8 +12,8 @@ function CreateTravelForm({ onexit, UserCarList }) {
     
 
     //campos de form
-    const [origin, setOrigin] = useState('');
-    const [destiny, setDestiny] = useState('');
+    const [origin, setOrigin] = useState(null);
+    const [destiny, setDestiny] = useState(null);
     const [datetime, setDatetime] = useState('');
     const [passengers, setPassengers] = useState(1);
     const [vehicle, setVehicle] = useState(null);
@@ -43,18 +44,12 @@ function CreateTravelForm({ onexit, UserCarList }) {
           },
           body: JSON.stringify({
             origen: {
-              address: origin,
-              location: {
-                type: "Point",
-                coordinates: [-50, 20] // Aquí deberías incluir la lógica para obtener las coordenadas reales del origen
-              }
+              address: origin.address,
+              location: origin.location
             },
             destino: {
-              address: destiny,
-              location: {
-                type: "Point",
-                coordinates: [-50, 20] // Aquí deberías incluir la lógica para obtener las coordenadas reales del destino
-              }
+              address: destiny.address,
+              location: destiny.location
             },
             fechaHora: datetime,
             asientos_disponibles: passengers,
@@ -117,32 +112,24 @@ function CreateTravelForm({ onexit, UserCarList }) {
                     <LocationIcon /> Ruta <span className="ctf-required">*</span>
                 </span>
                 <div className="ctf-route-block">
-                    <div className="ctf-route-row">
-                    <span className="ctf-route-dot ctf-dot-origin" />
-                    <input
-                        className="ctf-route-input"
-                        type="text"
-                        placeholder="Punto de salida"
-                        name="start-origin"
-                        id="start-origin"
-
-                        onChange={(e) => setOrigin(e.target.value)}
-                    />
-                    </div>
-                    <div className="ctf-route-sep" />
-                    <div className="ctf-route-row">
-                    <span className="ctf-route-dot ctf-dot-dest" />
-                    <input
-                        className="ctf-route-input"
-                        type="text"
-                        placeholder="Destino"
-                        name="start-destiny"
-                        id="start-destiny"
-
-                        onChange={(e) => setDestiny(e.target.value)}
-                    />
-                    </div>
-                </div>
+                <div className="ctf-route-row">
+                      <span className="ctf-route-dot ctf-dot-origin" />
+                      <PlacesInput
+                          className="ctf-route-input"
+                          placeholder="Punto de salida"
+                          onPlaceSelected={(data) => setOrigin(data)}
+                      />
+                  </div>
+                  <div className="ctf-route-sep" />
+                  <div className="ctf-route-row">
+                      <span className="ctf-route-dot ctf-dot-dest" />
+                      <PlacesInput
+                          className="ctf-route-input"
+                          placeholder="Destino"
+                          onPlaceSelected={(data) => setDestiny(data)}
+                      />
+                  </div>
+              </div>
                 </div>
         
                 {/*  Fecha  */}

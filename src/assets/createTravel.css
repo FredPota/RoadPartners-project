@@ -186,3 +186,8 @@
   background-color: #178a64;
   box-shadow: 0 4px 12px rgba(29, 158, 117, 0.25);
 }
+
+.pac-container {
+  z-index: 9999 !important;
+  pointer-events: all !important;
+}

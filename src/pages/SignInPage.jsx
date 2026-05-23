@@ -19,6 +19,11 @@ function SignInPage() {
     const handleRegister = async (e) => {
         e.preventDefault();
 
+        if (!nombre || !apellido || !correo || !telefono || !password || !confirmPassword) {
+            alert("Por favor, completa todos los campos");
+            return;
+        }
+
         if (password !== confirmPassword) {
             alert("Las contraseñas no coinciden");
             return;
@@ -41,6 +46,10 @@ function SignInPage() {
 
             const data = await response.json();
             console.log(data);
+
+            if (!response.ok) {
+                throw new Error(data.message || "Error al registrar");
+            }
 
             alert("Usuario registrado correctamente");
 

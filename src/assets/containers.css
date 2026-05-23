@@ -91,7 +91,7 @@
     px-32
     text-PageDark-900
     shadow-sm
-    z-100;
+    z-99;
 
 }
 .company-btn {
@@ -577,7 +577,7 @@
     @apply fixed inset-0
     flex items-center justify-center
     bg-black/50
-    z-10000;
+    z-100;
 }
 
 .travel-modal {

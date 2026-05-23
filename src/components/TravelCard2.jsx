@@ -12,8 +12,9 @@ import "../assets/travelCard2.css";
 function TravelCard2({onDelete, compact, travel, onclick, cardStyle }) {
   const isDriver    = travel.id_conductor === JSON.parse(localStorage.getItem("user"))._id;
   const isNext      = travel.estado === "Próximo";
-  const isDone      = travel.estado === "Terminado";
+  const isDone      = travel.estado === "completado";
   const canDelete   = isDriver && isNext;
+  const canExit     = !isDriver && isNext;
 
   const accentColor = isDriver ? "#1D9E75" : "#378ADD";
   const thumbBg     = isDriver ? "#E1F5EE" : "#E6F1FB";
@@ -53,6 +54,37 @@ function TravelCard2({onDelete, compact, travel, onclick, cardStyle }) {
         console.error('Error al eliminar el viaje:', error);
     }
   };
+
+  const handleExitTravel = async (e) => {
+    e.stopPropagation();
+    if (!window.confirm("¿Estás seguro de que deseas salir de este viaje?")) {
+      return;
+    }
+    try {
+      const response = await fetch(`http://localhost:3000/travels/exit/${travel._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ id_usuario: JSON.parse(localStorage.getItem('user'))._id })
+      });
+
+      const data = await response.json();
+
+      console.log('Respuesta al salir del viaje:', data);
+
+      if (!response.ok) {
+        throw new Error('Error al salir del viaje');
+      }
+      // Simulación de salida local (en una aplicación real, deberías actualizar el estado global o volver a cargar los datos)
+      onDelete(travel._id);
+
+    } catch (error) {
+      console.error('Error al salir del viaje:', error);
+    }
+  };
+
 
   const fecha = new Date(travel.fechaHora);
   const fechaStr = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()} ${fecha.getHours()}:${fecha.getMinutes().toString().padStart(2, '0')}`;
@@ -127,6 +159,16 @@ function TravelCard2({onDelete, compact, travel, onclick, cardStyle }) {
                 <p>Borrar</p>
               </button>
             </>
+          )}
+
+          {canExit && (
+            <button
+              className="tc-delete-btn"
+              title="Salir del viaje"
+              onClick={handleExitTravel}
+            >
+              <p>Salir</p>
+            </button>
           )}
         </div>
       </div>

@@ -113,7 +113,8 @@ function HomePage() {
                 body: JSON.stringify({
                     origen: searchOrigin,
                     destino: searchDestiny,
-                    fechaSalida: searchDate
+                    fechaSalida: searchDate,
+                    id_usuario: JSON.parse(localStorage.getItem('user'))._id
                 })
             });
 
@@ -123,11 +124,46 @@ function HomePage() {
                 setAvailableTravels(data);
                 setIsSearching(true);
             } else {
-                alert(data.message || 'No se encontraron viajes');
+                setAvailableTravels([]);
+                setIsSearching(true);
             }
         } catch (error) {
             console.error('Error al buscar viajes:', error);
             alert('No se pudo realizar la búsqueda');
+        }
+    };
+
+    const handlerJoinTravel = async () => {
+
+        if (!selectedTravel) {
+            alert('Por favor selecciona un viaje para unirte');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/travels/join/${selectedTravel._id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    id_usuario: JSON.parse(localStorage.getItem('user'))._id
+                })
+            });
+            
+
+            if (response.ok) {
+                setIsSearching(false);
+                alert('Te has unido al viaje exitosamente');
+                setSelectedTravel(null);
+            } else {
+                const data = await response.json();
+                alert(data.message || 'No se pudo unir al viaje');
+            }
+        } catch (error) {
+            console.error('Error al unirse al viaje:', error);
+            alert('No se pudo realizar la operación');
         }
     };
 
@@ -169,7 +205,7 @@ function HomePage() {
                     </div>
                     <div className='map-home'>
                         <Map isLoaded={isLoaded} selectedTravel={selectedTravel} searchOrigin={searchOrigin} />
-                        {isSearching===true && <AvailableTravels handlerSelectedTravel={setSelectedTravel} travels={availableTravels} setissearching={setIsSearching} />}
+                        {isSearching===true && <AvailableTravels handlerJoinTravel={handlerJoinTravel} handlerSelectedTravel={setSelectedTravel} travels={availableTravels} setissearching={setIsSearching} />}
                         
 
                         <div id="publish-btn" onClick={handleCreateTravel}>Crear Viaje</div>

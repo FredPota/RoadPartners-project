@@ -1,6 +1,6 @@
 import AvailableTravelCard from './availableTravelCard.jsx'
 
-function AvailableTravels({handlerSelectedTravel, travels, setissearching}) {
+function AvailableTravels({handlerJoinTravel, handlerSelectedTravel, travels, setissearching}) {
 
     return (
         <div className="absolute top-0 flex flex-col w-full h-full">
@@ -23,11 +23,13 @@ function AvailableTravels({handlerSelectedTravel, travels, setissearching}) {
                         travels.map((travel) => (
                             <AvailableTravelCard key={travel.id} travel={travel} onclick={handlerSelectedTravel} />
                         ))) : (
-                            <p className="text-center mt-10">No se encontraron viajes disponibles para la fecha seleccionada.</p>
+                            <p className="text-center m-10">No se encontraron viajes coincidentes.</p>
                         )}
 
                 </div>
-                <button className="btnSubmit-form self-center mt-5" onClick={() => setissearching(false)}>Solicitar Viaje</button>
+                {travels.length > 0 && (
+                    <button className="btnSubmit-form self-center mt-5" onClick={handlerJoinTravel}>Solicitar Viaje</button>
+                )}
             </div>
             <button className="exit-btn right-10 top-8 z-99999" onClick={() => setissearching(false)}>X</button>
         </div>

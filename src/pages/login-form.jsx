@@ -13,9 +13,9 @@ function LoginForm() {
         e.preventDefault();
 
         // 🔥 DEBUG 1 - confirma que el form funciona
-        console.log("🔥 CLICK EN LOGIN FORM");
+        //console.log("🔥 CLICK EN LOGIN FORM");
 
-        console.log("📨 DATOS ENVIADOS:", { correo, contraseña });
+        //console.log("📨 DATOS ENVIADOS:", { correo, contraseña });
 
         try {
             const res = await fetch("http://localhost:3000/login", {
@@ -30,11 +30,11 @@ function LoginForm() {
             });
 
             // 📡 DEBUG 2 - status HTTP
-            console.log("📡 STATUS RESPONSE:", res.status);
+            //console.log("📡 STATUS RESPONSE:", res.status);
 
             // 🧪 DEBUG 3 - respuesta cruda antes de parsear
             const rawText = await res.text();
-            console.log("📦 RAW RESPONSE:", rawText);
+            //console.log("📦 RAW RESPONSE:", rawText);
 
             let data;
             try {
@@ -44,7 +44,7 @@ function LoginForm() {
                 return;
             }
 
-            console.log("📦 RESPUESTA BACKEND:", data);
+            //console.log("📦 RESPUESTA BACKEND:", data);
 
             // 🔴 validar token
             if (!data.token) {
@@ -62,8 +62,8 @@ function LoginForm() {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.usuario));
 
-            console.log("💾 TOKEN LOCALSTORAGE:", localStorage.getItem("token"));
-            console.log("👤 USER LOCALSTORAGE:", localStorage.getItem("user"));
+            // console.log("💾 TOKEN LOCALSTORAGE:", localStorage.getItem("token"));
+            // console.log("👤 USER LOCALSTORAGE:", localStorage.getItem("user"));
 
             // 🚀 ir a home
             navigate("/");

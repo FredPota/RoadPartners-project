@@ -72,7 +72,7 @@ function TravelCard2({onDelete, compact, travel, onclick, cardStyle }) {
 
       const data = await response.json();
 
-      console.log('Respuesta al salir del viaje:', data);
+      //console.log('Respuesta al salir del viaje:', data);
 
       if (!response.ok) {
         throw new Error('Error al salir del viaje');

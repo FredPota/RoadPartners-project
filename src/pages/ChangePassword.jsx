@@ -8,8 +8,8 @@ function ChangePassword({ setisEditing }) {
 
     const handleChangePassword = async () => {
 
-        console.log("🔥 CLICK DETECTADO");
-        console.log("📤 ENVIANDO:", { actual, nueva });
+        // console.log("🔥 CLICK DETECTADO");
+        // console.log("📤 ENVIANDO:", { actual, nueva });
 
         if (!actual || !nueva || !confirmNueva) {
             alert("Completa todos los campos");
@@ -41,10 +41,10 @@ function ChangePassword({ setisEditing }) {
                 })
             });
 
-            console.log("📡 STATUS:", res.status);
+            // console.log("📡 STATUS:", res.status);
 
             const data = await res.json();
-            console.log("🔐 RESPUESTA:", data);
+            // console.log("🔐 RESPUESTA:", data);
 
             if (!res.ok) {
                 alert(data.message);

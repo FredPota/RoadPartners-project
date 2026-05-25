@@ -27,7 +27,7 @@ function TravelDetails({onChange, selectedTravel, setSelectedTravel }) {
             });
             const data = await response.json();
 
-            console.log('Respuesta al iniciar el viaje:', data);
+            //console.log('Respuesta al iniciar el viaje:', data);
             if (!response.ok) {
                 throw new Error('Error al iniciar el viaje');
             }
@@ -53,7 +53,7 @@ function TravelDetails({onChange, selectedTravel, setSelectedTravel }) {
                 body: JSON.stringify({ id_viaje: selectedTravel._id })
             });
             const data = await response.json();
-            console.log('Respuesta al finalizar el viaje:', data);
+            //console.log('Respuesta al finalizar el viaje:', data);
             if (!response.ok) {
                 throw new Error('Error al finalizar el viaje');
             }

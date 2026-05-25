@@ -37,7 +37,7 @@ function ProfilePage() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
-        console.log("🚪 Sesión cerrada correctamente");
+        //console.log("🚪 Sesión cerrada correctamente");
         navigate("/login");
     };
 
@@ -62,7 +62,7 @@ function ProfilePage() {
 
             const data = await res.json();
 
-            console.log("✅ ACTUALIZADO:", data);
+            //console.log("✅ ACTUALIZADO:", data);
 
             // 🔥 actualizar estado y localStorage
             setUser(data.usuario);
@@ -85,7 +85,7 @@ function ProfilePage() {
         const apiUrl = `http://localhost:3000/getCarsByDriver/${user._id}`;
 
         try {
-            console.log('Obteniendo autos del usuario con ID:', user._id);
+            //console.log('Obteniendo autos del usuario con ID:', user._id);
             const response = await fetch(apiUrl , {
                 method: 'GET',
                 headers: {
@@ -95,7 +95,7 @@ function ProfilePage() {
             });
 
             const data = await response.json();
-            console.log('Carros del usuario:', data);
+            //console.log('Carros del usuario:', data);
             setActiveSection('carProfile');
             setUserCars(data);
             return data;
@@ -113,7 +113,7 @@ function ProfilePage() {
         try {
             const user = JSON.parse(localStorage.getItem('user'));
             const apiUrl = `http://localhost:3000/travels/ownIn/${user._id}`;
-            console.log('Obteniendo viajes del usuario con ID:', user._id);
+            //console.log('Obteniendo viajes del usuario con ID:', user._id);
             const response = await fetch(apiUrl , {
                 method: 'POST',
                 headers: {
@@ -149,7 +149,7 @@ function ProfilePage() {
             });
 
             const data = await response.json();
-            console.log('Reseñas del usuario:', data);
+            //console.log('Reseñas del usuario:', data);
             setUserReviews(data);
         } catch (error) {
             console.error('Error al obtener las reseñas del usuario:', error);
@@ -197,7 +197,7 @@ function ProfilePage() {
             const updatedUser = response.json();
             
             localStorage.setItem('user', JSON.stringify(updatedUser));
-            console.log('Información del usuario actualizada:', updatedUser);
+            //console.log('Información del usuario actualizada:', updatedUser);
             setUser(updatedUser);
         } catch (error) {
             console.error('Error al refrescar la información del usuario:', error);

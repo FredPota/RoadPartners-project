@@ -14,17 +14,17 @@ function CarForm({user, onexit}) {
 
     // console.log("usuario en CarForm:", user._id);
 
-    const printFormData = () => {
+    // const printFormData = () => {
 
-        console.log("Marca:", marca);
-        console.log("Modelo:", modelo);
-        console.log("Año:", year);
-        console.log("Capacidad:", capacity);
-        console.log("Color:", color);
-        console.log("Placas:", plates);
-        console.log("ID Conductor:", userId);
-        console.log("Token en CarForm:", localStorage.getItem("token"));
-    }
+    //     console.log("Marca:", marca);
+    //     console.log("Modelo:", modelo);
+    //     console.log("Año:", year);
+    //     console.log("Capacidad:", capacity);
+    //     console.log("Color:", color);
+    //     console.log("Placas:", plates);
+    //     console.log("ID Conductor:", userId);
+    //     console.log("Token en CarForm:", localStorage.getItem("token"));
+    // }
 
 
     const handleSubmit = async (e) => {
@@ -59,7 +59,7 @@ function CarForm({user, onexit}) {
                 return;
             }
 
-            console.log("Vehículo agregado exitosamente:", data);
+            //console.log("Vehículo agregado exitosamente:", data);
             alert("Vehículo agregado exitosamente");
             onexit();
 

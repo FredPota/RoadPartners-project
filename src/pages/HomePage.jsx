@@ -72,7 +72,7 @@ function HomePage() {
         const apiUrl = `http://localhost:3000/getCarsByDriver/${user._id}`; // Reemplaza con la URL de tu API y el ID del usuario
 
         try {
-            console.log('Obteniendo autos del usuario con ID:', user._id);
+            //console.log('Obteniendo autos del usuario con ID:', user._id);
 
             const response = await fetch(apiUrl , {
                 method: 'GET',
@@ -84,7 +84,7 @@ function HomePage() {
 
             const data = await response.json();
 
-            console.log('Carros del usuario:', data);
+            //console.log('Carros del usuario:', data);
 
             setUserCars(data);
             setCreatingTravel(true);
@@ -242,7 +242,7 @@ function HomePage() {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('Partners recientes:', data);
+                //console.log('Partners recientes:', data);
                 setPartnersData(data);
             } else {
                 setPartnersData([]);
@@ -328,8 +328,8 @@ function HomePage() {
 
     }, []);
 
-    console.log('Viajes próximos:', nextTravels);
-    console.log('Viajes recientes:', recentTravels);
+    // console.log('Viajes próximos:', nextTravels);
+    // console.log('Viajes recientes:', recentTravels);
 
 
     return (

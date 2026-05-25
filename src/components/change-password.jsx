@@ -37,10 +37,10 @@ function ChangePassword({ setisediting }) {
                 })
             });
 
-            console.log("📡 STATUS:", res.status);
+            //console.log("📡 STATUS:", res.status);
 
             const data = await res.json();
-            console.log("🔐 RESPUESTA:", data);
+            //console.log("🔐 RESPUESTA:", data);
 
             if (!res.ok) {
                 alert(data.message);

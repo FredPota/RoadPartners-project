@@ -43,10 +43,10 @@ function AvailableTravelCard({ travel, onclick }) {
         <button className="relative stretched-card p-2 group" onClick={() => onclick(travel)}>
             <div className="flex gap-1 h-1/2 aspect-square w-full">
                 <img onClick={(e) => {setMouseLocation({x: e.clientX, y: e.clientY}); setHasReviews(!hasReviews)}} className='bg-white h-full rounded-full inset-ring-PageGreen-700 group-hover:inset-ring-4 p-2 transition-all duation-200 ease-in-out ' src='usuario.png' alt="Driver" />
-                <div className="flex text-start justify-center flex-col">
-                    <strong className="text-xs w-full">{driver.nombre} {driver.verificado === true ? <CheckIcon /> : null}</strong>
-                    <div id=" driver-score">{driver.calificacion || 0} ★   
-                        <span className="text-extraTiny text-gray-500"> {FechaSalidaFormatted}</span>
+                <div className="flex group text-start justify-center flex-col">
+                    <strong className="flex text-xs w-full">{driver.nombre} {driver.verificado === true ? <CheckIcon /> : null}</strong>
+                    <div id=" driver-score">{driver.calificacion?.toFixed(2) || 0} ★   
+                        <span className="text-extraTiny text-gray-500  group-focus:text-gray-100"> {FechaSalidaFormatted}</span>
                     </div>
                 </div>
                 <div className="m-auto text-xl font-semibold">${travel.precio} MXN</div>
@@ -69,7 +69,7 @@ function CheckIcon() {
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
       <path
         d="M2 5l2.5 2.5L8 3"
-        stroke="white"
+        stroke="black"
         strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"

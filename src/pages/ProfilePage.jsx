@@ -157,6 +157,30 @@ function ProfilePage() {
         }
     };
 
+    const handlerVerify = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/verify`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Error al enviar los documentos para verificación');
+            }
+            console.log('usuario mandado a verificación:', data.message);
+            setIsEditing('');
+        } catch (error) {
+            console.error('Error al verificar el perfil del usuario:', error);
+            console.log(error);
+            alert('No se pudo verificar el perfil. Por favor, intenta nuevamente más tarde.');
+        }
+    }; 
+
     const refreshUser = () => {
         try {
             const response = fetch(`http://localhost:3000/users/me`, {
@@ -314,7 +338,7 @@ function ProfilePage() {
 
                     {/* 🔹 VERIFICACIÓN */}
                     {isEditing === 'verify' && (
-                        <VerifyProfile setisediting={setIsEditing} />
+                        <VerifyProfile handlerVerify={handlerVerify} setisediting={setIsEditing} />
                     )}
 
                     {/* 🔹 OTROS */}

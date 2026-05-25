@@ -1,4 +1,4 @@
-function VerifyProfile({setisediting}) {
+function VerifyProfile({handlerVerify, setisediting}) {
     return (
         <div className="modal-overlay">
             <div className="bg-PageLight-950 w-1/3 h-auto p-5 rounded-4xl relative text-PageDark-950">
@@ -18,7 +18,7 @@ function VerifyProfile({setisediting}) {
                     </div>
                     
                     
-                    <button className="btnSubmit-form" onClick={() => {setisediting('')}}>Enviar archivos para verificación</button>
+                    <button className="btnSubmit-form" onClick={() => {handlerVerify(); setisediting('')}}>Enviar archivos para verificación</button>
                     <button className="exit-btn top-8 right-8" onClick={() => setisediting('')}>x</button>
 
                 </form>

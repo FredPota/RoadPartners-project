@@ -362,8 +362,11 @@ function HomePage() {
                             ) : (
                                 <p>Cargando...</p>
                             )}
-
-                            <input type="date" value={searchDate} onChange={(e) => setSearchDate(e.target.value)} className='input-form' />
+                            <div className='w-full'>  
+                                <span className='text-xs text-gray-500'>Despues de la fecha:</span> 
+                                <input type="date" value={searchDate} onChange={(e) => setSearchDate(e.target.value)} className='input-form' />
+                            </div>
+                            
 
                             <button type='button' onClick={handleSearch} className='btnSubmit-form self-center'>Buscar Viaje</button>
                         </form>
@@ -382,7 +385,7 @@ function HomePage() {
                 {/* <div id="search-btn">Buscar Viaje</div> */}
 
                 <div id="" className="w-[150%] mt-10">
-                    <h3 className="text-xl mb-4 ">Proximos Viajes</h3>
+                    <h3 className="text-xl text-center mb-4 ">Proximos Viajes</h3>
                     <ul className="list-container bg-DarkBlue/20">
                         {nextTravels.map((travel) => (
                             <TravelCard2 key={travel.id} travel={travel}
@@ -392,14 +395,19 @@ function HomePage() {
                             }}
                             />
                         ))}
+                        {nextTravels.length === 0 && (
+                            <li className="text-center text-gray-100 p-4">Aún no tienes viajes próximos</li>
+                        )}
                     </ul>
                 </div>
                 <div id="" className="w-[150%] mt-20">
-                    <h3 className="text-xl mb-4 ">Viajes Recientes</h3>
+                    <h3 className="text-xl text-center mb-4 ">Viajes Recientes</h3>
                     <ul className="list-container bg-DarkBlue/20">
                         {recentTravels.map((travel) => (
                             <TravelCard2 key={travel.id} travel={travel} />
-                        ))}
+                        ))} {recentTravels.length === 0 && (
+                            <li className="text-center text-gray-100 p-4">Aún no tienes viajes completados</li>
+                        )}
                     </ul>
                 </div>
                 <div className="recent-profiles-container w-[150%] mt-20">

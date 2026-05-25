@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "./palleteColors.css";
+
+.reviews-container{
+    @apply
+    mt-8
+    flex
+    flex-col
+    gap-4
+    overflow-y-auto
+    max-h-[500px]
+    pr-2;
+}
+
+.review-card{
+    @apply
+    bg-white/80
+    border
+    border-[#1f5d8f]/15
+    rounded-2xl
+    w-full
+    p-4
+    shadow-sm
+    transition-all
+    duration-200
+    hover:shadow-md
+    hover:border-[#1f5d8f]/30;
+}
+
+.review-header{
+    @apply
+    flex
+    justify-between
+    items-start
+    gap-3
+    mb-3;
+}
+
+.review-user-info{
+    @apply
+    flex
+    flex-col;
+}
+
+.review-user{
+    @apply
+    text-[15px]
+    font-semibold
+    text-[#144c74];
+}
+
+.review-date{
+    @apply
+    text-xs
+    text-gray-500;
+}
+
+.review-rating{
+    @apply
+    text-sm
+    font-semibold
+    bg-[#dff7ff]
+    text-[#0f5d8c]
+    px-3
+    py-1
+    rounded-full;
+}
+
+.review-comment{
+    @apply
+    text-sm
+    leading-relaxed
+    text-gray-700;
+}
+
+.empty-review-state{
+    @apply
+    h-full
+    flex
+    items-center
+    justify-center
+    text-gray-400
+    text-sm;
+}

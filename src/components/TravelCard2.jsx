@@ -110,7 +110,7 @@ function TravelCard2({onDelete, compact, travel, onclick, cardStyle }) {
           </span>
         </div>
         <div className="tc-footer">
-          <StarRating value={travel.rating ? travel.rating : 0} readOnly={!isDone} />
+          {/* <StarRating value={travel.rating ? travel.rating : 0} readOnly={!isDone} /> */}
           <span className={statusClass}>{travel.estado}</span>
         </div>
       </li>
@@ -140,7 +140,7 @@ function TravelCard2({onDelete, compact, travel, onclick, cardStyle }) {
 
       <div className="tc-footer">
         <div className="tc-footer-left">
-          <StarRating value={travel.rating ? travel.rating : 0} readOnly={!isDone} />
+          {/* <StarRating value={travel.rating ? travel.rating : 0} readOnly={!isDone} /> */}
           <span className={statusClass}>{travel.estado}</span>
         </div>
 

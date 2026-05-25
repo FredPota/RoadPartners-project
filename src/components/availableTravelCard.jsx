@@ -11,6 +11,7 @@ function AvailableTravelCard({ travel, onclick }) {
     const options = { hour: '2-digit', minute: '2-digit' };
     const horaSalidaFormatted = horaSalida.toLocaleTimeString([], options);
     const horaLlegadaFormatted = horaLlegada.toLocaleTimeString([], options);
+    const FechaSalidaFormatted = horaSalida.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
 
     const [driver, setDriver] = useState({ name: 'Cargando...', score: 0, verified: false });
 
@@ -42,17 +43,19 @@ function AvailableTravelCard({ travel, onclick }) {
         <button className="relative stretched-card p-2 group" onClick={() => onclick(travel)}>
             <div className="flex gap-1 h-1/2 aspect-square w-full">
                 <img onClick={(e) => {setMouseLocation({x: e.clientX, y: e.clientY}); setHasReviews(!hasReviews)}} className='bg-white h-full rounded-full inset-ring-PageGreen-700 group-hover:inset-ring-4 p-2 transition-all duation-200 ease-in-out ' src='usuario.png' alt="Driver" />
-                <div className="flex flex-col">
-                    <div className="text-xs w-full">{driver.nombre} {driver.verificado === true ? <CheckIcon /> : null}</div>
-                    <div id="driver-score">{driver.score || 0} ★</div>
+                <div className="flex text-start justify-center flex-col">
+                    <strong className="text-xs w-full">{driver.nombre} {driver.verificado === true ? <CheckIcon /> : null}</strong>
+                    <div id=" driver-score">{driver.calificacion || 0} ★   
+                        <span className="text-extraTiny text-gray-500"> {FechaSalidaFormatted}</span>
+                    </div>
                 </div>
                 <div className="m-auto text-xl font-semibold">${travel.precio} MXN</div>
                 {hasReviews==true && <ReviewsPopUp x={mouseLocation.x} y={mouseLocation.y} />}
             </div>
             <div className="divide-x gap-1 flex w-full h-1/2 items-center justify-around" id='travel-info'>
-                <div className="text-tiny">{travel.destino.address}</div>
-                <div className="text-tiny">Partes {horaSalidaFormatted}</div>
-                <div className="text-tiny">llegas {horaLlegadaFormatted}</div>
+                <div className="text-extraTiny">{travel.destino.address}</div>
+                <div className="text-extraTiny">De {horaSalidaFormatted}</div>
+                <div className="text-extraTiny">A {horaLlegadaFormatted}</div>
 
             </div>
 

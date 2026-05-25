@@ -3,6 +3,7 @@ import "../assets/TravelDetails.css";
 function TravelDetails({onChange, selectedTravel, setSelectedTravel }) {
 
     const hourTime = new Date(selectedTravel.fechaHora);
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const hour = hourTime.toLocaleTimeString([], {
         hour: '2-digit',
@@ -171,7 +172,7 @@ function TravelDetails({onChange, selectedTravel, setSelectedTravel }) {
                 </div>
 
                 {/* Acciones */}
-                {selectedTravel.estado === "Próximo" && (
+                {(selectedTravel.estado === "Próximo" && selectedTravel.id_conductor === user._id) && (
                     <div className="travel-actions">
 
                         <button className="travel-btn-secondary" onClick={handlerInitiateTravel}>
@@ -185,7 +186,7 @@ function TravelDetails({onChange, selectedTravel, setSelectedTravel }) {
                     </div>
                 )}
 
-                {selectedTravel.estado === "en curso" && (
+                {(selectedTravel.estado === "en curso" && selectedTravel.id_conductor === user._id) && (
                     <div className="travel-actions">
 
                         <button className="travel-btn-danger" onClick={handlerFinishTravel}>

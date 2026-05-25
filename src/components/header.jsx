@@ -3,9 +3,13 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function Header() {
+    
     const [selectedAccountOption, setSelectedAccountOption] = useState(null);
+    const sesion = localStorage.getItem('token');
 
     const navigate = useNavigate();
+
+    
 
     const goHome = () => {
         navigate("/");
@@ -22,6 +26,19 @@ function Header() {
     const goProfile = () => {
         navigate("/profile");
     };
+
+    const options1 = [
+        { label: 'Iniciar Sesión', value: 'login', onClick: goLogin },
+        { label: 'Registrarse', value: 'register', onClick: goRegister },
+    ];
+
+    const options2 = [
+        { label: 'Mi Perfil', value: 'profile', onClick: goProfile },
+        { label: 'Cerrar Sesión', value: 'logOut', onClick: () => {
+            localStorage.removeItem('token');
+            navigate('/login');
+        }}
+    ];
 
     return (
         <header className="header-container">
@@ -47,12 +64,9 @@ function Header() {
                 <div className="h-6 w-[1px] bg-gray-200 mx-2"></div>
 
                 <Dropdown
-                    options={[
-                        { label: 'Mi Perfil', value: 'profile', onClick: goProfile },
-                        { label: 'Iniciar Sesión', value: 'login', onClick: goLogin },
-                        { label: 'Registrarse', value: 'register', onClick: goRegister },
-                        { label: 'Cerrar Sesión', value: 'logOut', onClick: goLogin}
-                    ]}
+                    options={
+                        sesion ? options2 : options1
+                    }
                     dropdownName="Cuenta"
                 /> 
             </nav>

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/header.jsx';
 import PaymentForm from '../components/payment-form';
 import TravelHistory from '../components/travelhistory.jsx';
@@ -7,6 +7,7 @@ import ChangePassword from '../components/change-password.jsx';
 import VerifyProfile from '../components/verifyProfile.jsx';
 import PayMethodsList from '../components/payMethodsList.jsx';
 import CarSection from '../components/carSection.jsx';
+import ReviewCard from '../components/ReviewCard.jsx';
 import '../assets/loginPage.css';
 import '../assets/containers.css';
 
@@ -17,6 +18,7 @@ function ProfilePage() {
     const [cardAction, setCardAction] = useState('');
     const [userCars, setUserCars] = useState([]);
     const [userTravels, setUserTravels] = useState([]);
+    const [userReviews, setUserReviews] = useState([]);
 
 
     const navigate = useNavigate();
@@ -136,6 +138,57 @@ function ProfilePage() {
         }
     };
 
+    const getUserReviews = async () => {
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const apiUrl = `http://localhost:3000/reviews/user/usuario`;
+
+            const response = await fetch(apiUrl , {
+                method: 'GET',
+                headers: {'Authorization': `${localStorage.getItem('token')}`}
+            });
+
+            const data = await response.json();
+            console.log('Reseñas del usuario:', data);
+            setUserReviews(data);
+        } catch (error) {
+            console.error('Error al obtener las reseñas del usuario:', error);
+            alert('No se pudo obtener la información de tus reseñas. Por favor, intenta nuevamente más tarde.');
+        }
+    };
+
+    const refreshUser = () => {
+        try {
+            const response = fetch(`http://localhost:3000/users/me`, {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error('Error al refrescar la información del usuario');
+            }
+            const updatedUser = response.json();
+            
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            console.log('Información del usuario actualizada:', updatedUser);
+            setUser(updatedUser);
+        } catch (error) {
+            console.error('Error al refrescar la información del usuario:', error);
+        }
+
+    };
+
+    useEffect(() => {
+        //obtener reseñas del usuario al cargar la página
+        refreshUser();
+        getUserReviews();
+    }, []);
+
+
+
 
     return (
         <div>
@@ -150,73 +203,106 @@ function ProfilePage() {
                 <div id="profile-container">
 
                     {/* 👤 NOMBRE */}
-                    <div className="flex flex-row gap-5" id="profile-header">
-                        <img className='aspect-square w-40 p-5 rounded-full bg-PageLight-950' src="usuario.png" alt="profile-picture" />
-                        <h1 className="text-6xl">
-                            {user ? user.nombre : "Usuario"}
+                    <div className="flex flex-row gap-15" id="profile-header">
+                        <img className='aspect-square w-40 p-5 rounded-full bg-gray-950/10' src="usuario.png" alt="profile-picture" />
+                        <h1 className="text-6xl flex">
+                            <div>   
+                                {user ? user.nombre : "Usuario"}
+                                <div className="flex text-2xl mt-2 text-gray-500">
+                                    {user?.verificado ? "Perfil Verificado" : "Perfil No Verificado"}
+                                </div>
+                            </div>
+                            
                         </h1>
+                        <span className="bg-gray-200/50 rounded-xl p-5 text-8xl mt-2 text-[#144c74]">
+                            {user?.calificacion?.toFixed(2) || 'N/A'} ★
+                        </span>
                     </div>
 
                     {/* 🔹 INFO PERSONAL */}
                     {activeSection === 'personalInfo' && (
-                        <div>
-                            <div className="text-left" id="profile-content">
+                        <div className="flex gap-10">
+                            <div>
+                                <div className="text-left" id="profile-content">
 
-                                <p className='subtitle-form bg-[#eaffff] -top-4'>Información Personal</p>
+                                    <p className='subtitle-form bg-[#eaffff] -top-4'>Información Personal</p>
 
-                                {isEditing === 'info' ? (
-                                    <form className="flex flex-col gap-4" onSubmit={handleUpdate}>
+                                    {isEditing === 'info' ? (
+                                        <form className="flex flex-col gap-4" onSubmit={handleUpdate}>
 
-                                        <div className='login-group'>
-                                            <label>Email:</label>
-                                            <input 
-                                                className="input-form"
-                                                type="email"
-                                                value={correo}
-                                                onChange={(e) => setCorreo(e.target.value)}
-                                            />
-                                        </div>
+                                            <div className='login-group'>
+                                                <label>Email:</label>
+                                                <input 
+                                                    className="input-form"
+                                                    type="email"
+                                                    value={correo}
+                                                    onChange={(e) => setCorreo(e.target.value)}
+                                                />
+                                            </div>
 
-                                        <div className='login-group'>
-                                            <label>Teléfono:</label>
-                                            <input 
-                                                className="input-form"
-                                                type="tel"
-                                                value={telefono}
-                                                onChange={(e) => setTelefono(e.target.value)}
-                                            />
-                                        </div>
+                                            <div className='login-group'>
+                                                <label>Teléfono:</label>
+                                                <input 
+                                                    className="input-form"
+                                                    type="tel"
+                                                    value={telefono}
+                                                    onChange={(e) => setTelefono(e.target.value)}
+                                                />
+                                            </div>
 
-                                        <button className="btnSubmit-form" type="submit">
-                                            Guardar Cambios
+                                            <button className="btnSubmit-form" type="submit">
+                                                Guardar Cambios
+                                            </button>
+
+                                        </form>
+                                    ) : (
+                                        <>
+                                            <p>Email: {user?.correo}</p>
+                                            <p>Teléfono: {user?.telefono}</p>
+                                        </>
+                                    )}
+
+                                    <nav className="nav-btns gap-1"> 
+                                        <button className="profile-btn" onClick={() => setIsEditing('verify')}>
+                                            Verificar Perfil
                                         </button>
 
-                                    </form>
-                                ) : (
-                                    <>
-                                        <p>Email: {user?.correo}</p>
-                                        <p>Teléfono: {user?.telefono}</p>
-                                    </>
-                                )}
+                                        <button className="profile-btn" onClick={() => setIsEditing('info')}>
+                                            Editar Información Personal
+                                        </button>
 
-                                <nav className="nav-btns gap-1"> 
-                                    <button className="profile-btn" onClick={() => setIsEditing('verify')}>
-                                        Verificar Perfil
-                                    </button>
+                                        <button className="profile-btn" onClick={() => setIsEditing('password')}>
+                                            Cambiar Contraseña
+                                        </button>
 
-                                    <button className="profile-btn" onClick={() => setIsEditing('info')}>
-                                        Editar Información Personal
-                                    </button>
+                                        <button className="profile-btn" onClick={handleLogout}>
+                                            Cerrar Sesión
+                                        </button>
+                                    </nav>
 
-                                    <button className="profile-btn" onClick={() => setIsEditing('password')}>
-                                        Cambiar Contraseña
-                                    </button>
+                                </div>
+                            </div>
+                            <div className="text-left w-100 h-95 relative login-form text-gray-900">
+                                <p className="subtitle-form -top-4 bg-[#eaffff]">
+                                    Reseñas Recibidas
+                                </p>
 
-                                    <button className="profile-btn" onClick={handleLogout}>
-                                        Cerrar Sesión
-                                    </button>
-                                </nav>
+                                <p className="text-3xl absolute -top-10 right-5 font-semibold text-[#144c74]">
+                                    ★ {user?.calificacion?.toFixed(2) || 'N/A'}
+                                </p>
 
+                                <div className="list-container-vertical bg-blue w-100 h-100">
+                                    
+                                    {userReviews.length > 0 ? (
+                                        userReviews.map((review) => (
+                                            <ReviewCard key={review.id} review={review} />
+                                        ))
+                                    ) : (
+                                        <p className="text-center mt-10">No tienes reseñas aún.</p>
+                                    )}
+
+
+                                </div>
                             </div>
                         </div>
                     )}

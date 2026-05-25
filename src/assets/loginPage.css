@@ -172,6 +172,12 @@
   pb-1
   ;
 }
+.text-extraTiny {
+  @apply text-[10px]
+  justify-self-start
+  pb-1
+  ;
+}
 
 
 

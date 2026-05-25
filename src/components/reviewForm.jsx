@@ -93,13 +93,13 @@ function ReviewForm({ setreview, id_viaje, id_usuario, id_autor }) {
                         <button 
                             type="button" 
                             onClick={() => setreview(false)}
-                            className="btnCancel-form"
+                            className="btnCancel-form text-white h-10 hover:text-red-300 focus:bg-red-600 transition-colors duration-200"
                         >
                             Cancelar
                         </button>
                         <button 
                             type="submit" 
-                            className="btnSubmit-form"
+                            className="text-white h-10  focus:bg-PageGreen-700 transition-colors duration-200"
                             disabled={enviando}
                         >
                             {enviando ? "Enviando..." : "Enviar Reseña"}

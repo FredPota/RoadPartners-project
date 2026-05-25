@@ -230,76 +230,96 @@ function HomePage() {
     };
     
     const fetchPartnersFromRecentTravels = async () => {
-    try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        const currentUserId = user._id;
-
-        const response = await fetch(`http://localhost:3000/travels/ownIn/${currentUserId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({ estado: "completado" })
-        });
-
-        const travels = await response.json();
-
-        if (!response.ok) {
-            setPartnersData([]);
-            return;
-        }
-
-        const partnersMap = new Map();
-
-        for (const travel of travels) {
-            let partnerId = null;
-            
-            if (travel.conductor_id?._id === currentUserId || travel.conductor_id === currentUserId) {
-                const passengerId = travel.pasajeros?.[0]?._id || travel.pasajeros?.[0];
-                if (passengerId && passengerId !== currentUserId) {
-                    partnerId = passengerId;
+        try {
+            const response = await fetch(`http://localhost:3000/users/getRecentPartners`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
                 }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Partners recientes:', data);
+                setPartnersData(data);
             } else {
-                partnerId = travel.conductor_id?._id || travel.conductor_id;
+                setPartnersData([]);
+            }
+            
+
+            /*const user = JSON.parse(localStorage.getItem('user'));
+            const currentUserId = user._id;
+
+            const response = await fetch(`http://localhost:3000/travels/ownIn/${currentUserId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ estado: "completado" })
+            });
+
+            const travels = await response.json();
+
+            if (!response.ok) {
+                setPartnersData([]);
+                return;
             }
 
-            if (partnerId && partnerId !== currentUserId && !partnersMap.has(partnerId)) {
-                let partnerName = `Usuario ${partnerId}`;
-                let partnerVerified = false;
+            const partnersMap = new Map();
 
-                try {
-                    const userResponse = await fetch(`http://localhost:3000/users/${partnerId}`, {
-                        headers: { 'Authorization': `${localStorage.getItem('token')}` }
-                    });
-                    const userData = await userResponse.json();
-                    if (userResponse.ok) {
-                        partnerName = userData.nombre || userData.name || partnerName;
-                        partnerVerified = userData.verified || false;
+            for (const travel of travels) {
+                let partnerId = null;
+                
+                if (travel.id_conductor?._id === currentUserId || travel.id_conductor === currentUserId) {
+                    const passengerId = travel.pasajeros?.[0]?._id || travel.pasajeros?.[0];
+                    if (passengerId && passengerId !== currentUserId) {
+                        partnerId = passengerId;
                     }
-                } catch (err) {
-                    console.error(`Error obteniendo usuario ${partnerId}:`, err);
+                } else {
+                    partnerId = travel.id_conductor?._id || travel.id_conductor;
                 }
 
-                partnersMap.set(partnerId, {
-                    id_usuario: partnerId,
-                    id_viaje: travel._id,
-                    id_autor: currentUserId,
-                    name: partnerName,
-                    date: travel.fechaSalida ? new Date(travel.fechaSalida).toLocaleDateString() : "Fecha desconocida",
-                    dest: travel.destino?.texto || travel.destino || "Destino",
-                    verified: partnerVerified,
-                    photoSrc: null
-                });
-            }
-        }
+                if (partnerId && partnerId !== currentUserId && !partnersMap.has(partnerId)) {
+                    let partnerName = `Usuario ${partnerId}`;
+                    let partnerVerified = false;
 
-        setPartnersData(Array.from(partnersMap.values()));
-    } catch (error) {
-        console.error('Error al obtener partners:', error);
-        setPartnersData([]);
-    }
-};
+                    try {
+                        const userResponse = await fetch(`http://localhost:3000/users/getProfile/`, {
+                            headers: { 'Authorization': `${localStorage.getItem('token')}` },
+                            method: 'POST',
+                            body: JSON.stringify({ id_usuario: partnerId })
+                        });
+                        const userData = await userResponse.json();
+                        if (userResponse.ok) {
+                            partnerName = userData.nombre || userData.name || partnerName;
+                            partnerVerified = userData.verified || false;
+                        }
+                    } catch (err) {
+                        console.error(`Error obteniendo usuario ${partnerId}:`, err);
+                    }
+
+                    partnersMap.set(partnerId, {
+                        id_usuario: partnerId,
+                        id_viaje: travel._id,
+                        id_autor: currentUserId,
+                        name: partnerName,
+                        date: travel.fechaSalida ? new Date(travel.fechaSalida).toLocaleDateString() : "Fecha desconocida",
+                        dest: travel.destino?.texto || travel.destino || "Destino",
+                        verified: partnerVerified,
+                        photoSrc: null
+                    });
+                }
+            }
+
+            setPartnersData(Array.from(partnersMap.values()));*/
+        } catch (error) {
+            console.error('Error al obtener partners:', error);
+            setPartnersData([]);
+        }
+    };
 
     useEffect(() => {
         fetchNextTravels();
@@ -391,9 +411,9 @@ function HomePage() {
                              partnersData.map((partner, index) => (
                             <ProfileCards2
                                  key={partner.id_usuario || index}
-                                name={partner.name}
-                                date={partner.date}
-                                dest={partner.dest}
+                                name={partner.nombre}
+                                date={partner.fecha_viaje}
+                                dest={partner.destino}
                                 photoSrc={partner.photoSrc || "/usuario.png"}
                                 verified={partner.verified}
                                 id_viaje={partner.id_viaje}

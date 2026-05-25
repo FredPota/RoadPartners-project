@@ -55,10 +55,10 @@ function ProfileCards2({
 
                     <div className="pc-trip-badge">
                         <DestIcon />
-                        <span>{dest ?? "Destino"}</span>
+                        <span>{dest.address ?? "Destino"}</span>
                     </div>
 
-                    <p className="pc-date">{date ?? "Fecha"}</p>
+                    <p className="pc-date">{new Date(date).toLocaleDateString() ?? "Fecha"}</p>
                 </div>
 
                 {/* Rating - Al hacer clic abre el formulario de reseña */}

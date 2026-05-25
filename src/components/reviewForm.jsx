@@ -10,6 +10,8 @@ function ReviewForm({ setreview, id_viaje, id_usuario, id_autor }) {
         e.preventDefault();
         setEnviando(true);
         setError("");
+        
+        //
 
         const reviewData = {
             id_viaje: id_viaje,
@@ -20,12 +22,13 @@ function ReviewForm({ setreview, id_viaje, id_usuario, id_autor }) {
         };
 
         try {
-            const response = await fetch("http://localhost:3000/api/reviews/create", {
+            const response = await fetch("http://localhost:3000/reviews/create", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `${localStorage.getItem("token")}`
                 },
-                body: JSON.stringify(reviewData)
+                body: JSON.stringify({ reviewData: reviewData })
             });
 
             const data = await response.json();
@@ -49,7 +52,7 @@ function ReviewForm({ setreview, id_viaje, id_usuario, id_autor }) {
     return (
         <div className="modal-overlay">
             <div className="w-2/3 max-w-300 rounded-lg p-10 bg-PageLight-950 text-PageDark-950">
-                <form onSubmit={handleSubmit} className="login-form w-full">
+                <form onSubmit={handleSubmit} method="post" className="login-form w-full">
                     <h3 className="text-lg font-semibold mb-4">Deja tu reseña</h3>
                     
                     {/* Selector de puntuación (1-5 estrellas) */}

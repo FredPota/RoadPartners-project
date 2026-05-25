@@ -1,0 +1,193 @@
+@import "tailwindcss";
+@import "./palleteColors.css";
+
+/* Overlay */
+
+.travel-modal-overlay {
+    @apply fixed inset-0
+    flex items-center justify-center
+    bg-black/60
+    backdrop-blur-[3px]
+    z-[999];
+}
+
+/* Modal */
+
+.travel-details-modal {
+    @apply
+    w-[92%]
+    max-w-2xl
+    bg-white
+    rounded-3xl
+    border border-black/5
+    shadow-2xl
+    p-8
+    flex flex-col gap-6
+    duration-200;
+}
+
+/* Header */
+
+.travel-details-header {
+    @apply
+    flex items-start justify-between
+    gap-4
+    border-b border-black/5
+    pb-5;
+}
+
+.travel-details-label {
+    @apply
+    text-xs
+    uppercase
+    tracking-widest
+    text-gray-400
+    font-semibold;
+}
+
+.travel-details-title {
+    @apply
+    text-3xl
+    font-bold
+    text-gray-900;
+}
+
+/* Status */
+
+.travel-status-badge {
+    @apply
+    px-4 py-1.5
+    rounded-full
+    text-xs
+    font-semibold
+    whitespace-nowrap;
+}
+
+.travel-status-next {
+    @apply
+    bg-yellow-100
+    text-yellow-800;
+}
+
+.travel-status-active {
+    @apply
+    bg-green-100
+    text-green-700;
+}
+
+/* Grid */
+
+.travel-info-grid {
+    @apply
+    grid
+    grid-cols-2
+    gap-4;
+}
+
+/* Cards */
+
+.travel-info-card {
+    @apply
+    bg-[#F7FAFC]
+    border border-black/[0.05]
+    rounded-2xl
+    p-4
+    flex flex-col gap-1
+    transition-all duration-150
+    hover:shadow-md
+    hover:border-[#03A6A6]/20;
+}
+
+.travel-info-label {
+    @apply
+    text-xs
+    uppercase
+    tracking-wide
+    text-gray-400
+    font-semibold;
+}
+
+.travel-info-value {
+    @apply
+    text-sm
+    font-semibold
+    text-gray-800
+    leading-snug;
+}
+
+/* Precio */
+
+.travel-price {
+    @apply
+    text-xl
+    font-bold
+    text-[#0F6E56];
+}
+
+/* Acciones */
+
+.travel-actions {
+    @apply
+    flex gap-4
+    pt-2;
+}
+
+/* Botones */
+
+.travel-btn-primary {
+    @apply
+    flex-1
+    bg-[#03A6A6]
+    text-white
+    py-3
+    rounded-xl
+    font-semibold
+    border-0
+    transition-all duration-150
+    hover:brightness-110
+    hover:shadow-lg
+    hover:shadow-cyan-500/20;
+}
+
+.travel-btn-secondary {
+    @apply
+    flex-1
+    bg-white
+    text-gray-700
+    py-3
+    rounded-xl
+    border border-black/10
+    font-semibold
+    transition-all duration-150
+    hover:bg-gray-100;
+}
+
+.travel-btn-danger {
+    @apply
+    w-full
+    bg-red-500
+    text-white
+    py-3
+    rounded-xl
+    font-semibold
+    border-0
+    transition-all duration-150
+    hover:bg-red-600
+    hover:shadow-lg
+    hover:shadow-red-500/20;
+}
+
+/* Cerrar */
+
+.travel-close-btn {
+    @apply
+    mt-2
+    text-sm
+    text-gray-500
+    font-medium
+    hover:text-gray-800
+    transition-all duration-150
+    self-end
+    bg-transparent
+    border-0;
+}

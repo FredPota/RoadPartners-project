@@ -257,10 +257,12 @@ function HomePage() {
                                     <PlacesInput
                                         label="Origen"
                                         onPlaceSelected={(data) => setSearchOrigin(data)}
+                                        Placeholder="Ingresa el origen"
                                     />
                                     <PlacesInput
                                         label="Destino"
                                         onPlaceSelected={(data) => setSearchDestiny(data)}
+                                        placeholder="Ingresa el destino"
                                     />
                                 </>
                             ) : (

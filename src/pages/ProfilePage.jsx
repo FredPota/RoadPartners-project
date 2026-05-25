@@ -110,10 +110,10 @@ function ProfilePage() {
 
         try {
             const user = JSON.parse(localStorage.getItem('user'));
-            const apiUrl = `http://localhost:3000/getTravelsByDriver/${user._id}`;
+            const apiUrl = `http://localhost:3000/travels/ownIn/${user._id}`;
             console.log('Obteniendo viajes del usuario con ID:', user._id);
             const response = await fetch(apiUrl , {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `${localStorage.getItem('token')}`

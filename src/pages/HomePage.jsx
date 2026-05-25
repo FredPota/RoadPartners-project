@@ -32,10 +32,10 @@ const user = {
     ],
 };
 
-const lastPartners = [
+/*const lastPartners = [
     { name: "María García", date: "14 de marzo", dest: "Facultad de Informática", photoSrc: null, verified: true },
     { name: "Juan Pérez", date: "12 de marzo", dest: "Facultad de Medicina", photoSrc: null, verified: false }
-];
+];*/
 
 
 function HomePage() {
@@ -54,6 +54,7 @@ function HomePage() {
     const [recentTravels, setRecentTravels] = useState([]);
 
     const [selectedTravel, setSelectedTravel] = useState(null);
+    const [partnersData, setPartnersData] = useState([]);
 
     const navigate = useNavigate();
     const goToLogin = () => {
@@ -228,9 +229,82 @@ function HomePage() {
         }
     };
     
+    const fetchPartnersFromRecentTravels = async () => {
+    try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const currentUserId = user._id;
+
+        const response = await fetch(`http://localhost:3000/travels/ownIn/${currentUserId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ estado: "completado" })
+        });
+
+        const travels = await response.json();
+
+        if (!response.ok) {
+            setPartnersData([]);
+            return;
+        }
+
+        const partnersMap = new Map();
+
+        for (const travel of travels) {
+            let partnerId = null;
+            
+            if (travel.conductor_id?._id === currentUserId || travel.conductor_id === currentUserId) {
+                const passengerId = travel.pasajeros?.[0]?._id || travel.pasajeros?.[0];
+                if (passengerId && passengerId !== currentUserId) {
+                    partnerId = passengerId;
+                }
+            } else {
+                partnerId = travel.conductor_id?._id || travel.conductor_id;
+            }
+
+            if (partnerId && partnerId !== currentUserId && !partnersMap.has(partnerId)) {
+                let partnerName = `Usuario ${partnerId}`;
+                let partnerVerified = false;
+
+                try {
+                    const userResponse = await fetch(`http://localhost:3000/users/${partnerId}`, {
+                        headers: { 'Authorization': `${localStorage.getItem('token')}` }
+                    });
+                    const userData = await userResponse.json();
+                    if (userResponse.ok) {
+                        partnerName = userData.nombre || userData.name || partnerName;
+                        partnerVerified = userData.verified || false;
+                    }
+                } catch (err) {
+                    console.error(`Error obteniendo usuario ${partnerId}:`, err);
+                }
+
+                partnersMap.set(partnerId, {
+                    id_usuario: partnerId,
+                    id_viaje: travel._id,
+                    id_autor: currentUserId,
+                    name: partnerName,
+                    date: travel.fechaSalida ? new Date(travel.fechaSalida).toLocaleDateString() : "Fecha desconocida",
+                    dest: travel.destino?.texto || travel.destino || "Destino",
+                    verified: partnerVerified,
+                    photoSrc: null
+                });
+            }
+        }
+
+        setPartnersData(Array.from(partnersMap.values()));
+    } catch (error) {
+        console.error('Error al obtener partners:', error);
+        setPartnersData([]);
+    }
+};
+
     useEffect(() => {
         fetchNextTravels();
         fetchRecentTravels();
+        fetchPartnersFromRecentTravels();
 
     }, []);
 
@@ -309,18 +383,25 @@ function HomePage() {
                 <div className="recent-profiles-container w-[150%] mt-20">
                     <h3 className="text-xl mb-4 text-center w-full">Partners Recientes</h3>
                     <ul className="list-container bg-white/90">
-                        {lastPartners.map((partner, index) => (
+                        {partnersData.length === 0 ? (
+                         <li className="text-center text-gray-500 p-4">Aún no tienes viajes completados con otros usuarios</li>
+                         ) : (
+                             partnersData.map((partner, index) => (
                             <ProfileCards2
-                                key={index}
+                                 key={partner.id_usuario || index}
                                 name={partner.name}
                                 date={partner.date}
                                 dest={partner.dest}
-                                photoSrc={"/usuario.png"}
+                                photoSrc={partner.photoSrc || "/usuario.png"}
                                 verified={partner.verified}
-                            />
-                        ))}
-                    </ul>
-                </div>
+                                id_viaje={partner.id_viaje}
+                                id_usuario={partner.id_usuario}
+                                id_autor={partner.id_autor}
+                                                             />
+                                                                 ))
+                                                                    )}
+                             </ul>
+                        </div>
 
             </div>
 
